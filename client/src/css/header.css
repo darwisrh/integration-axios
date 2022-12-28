@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.main {
+  background: #F1F1F1;
+  height: 100%;
+}
+
+/* SEACRH */
+.header {
+  background-image: url('../images/Header.png');
+  background-repeat: no-repeat;
+}
+
+.search {
+  width: 1200px;
+  margin: 0px auto;
+}
+
+@media (max-width: 1150px) {
+  .search {
+    width: 950px;
+  }
+}
+
+@media (max-width: 900px) {
+  .search {
+    width: 850px;
+  }
+}
+
+/* Navbar */
+nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+nav .left-side {
+  flex: 50%;
+}
+
+nav .left-side ul {
+  margin: 0;
+}
+
+nav .left-side img {
+  width: 159px;
+  height: 68px;
+  position: relative;
+  right: 40px;
+  top: 1px;
+}
+
+nav .left-side li {
+  display: inline;
+}
+
+nav .right-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+nav .right-side li {
+  display: inline;
+}
+
+nav .right-side a {
+  margin-left: 30px;
+  text-decoration: none;
+  color: white;
+  border-radius: 5px;
+}
+
+nav .right-side ul {
+  margin: 0;
+}
+
+nav .right-side ul li:last-child {
+  margin-left: 20px;
+}
+
+nav .right-side ul li:nth-child(2) a {
+  padding: 4px 25px;
+  background: #FFAF00;
+  border: 1px solid #FFAF00;
+}
+/* /SEACRH/ */
+
+/* WELCOME TEXT */
+.welcome-text {
+  margin: 50px 0 35px;
+}
+
+.welcome-text p:first-child {
+  font-weight: 700;
+  font-size: 60px;
+  color: white;
+  margin: 0;
+}
+
+.welcome-text p:nth-child(2) {
+  font-weight: 200;
+  font-size: 60px;
+  color: white;
+  margin: 0;
+  position: relative;
+  bottom: 30px;
+}
+/* /WELCOME TEXT/ */
+
+/* SEARCH INPUT */
+.search-input p {
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
+  margin: 0 0 5px;
+}
+
+.search-button {
+  width: 110px;
+  display: flex;
+  justify-content: center;
+  background: #FFAF00 !important;
+  border: 1px solid #FFAF00 !important;
+  color: white !important;
+  font-family: 'Nunito Sans', sans-serif;
+  cursor: pointer;
+}
+/* /SEARCH INPUT/ */
+
+/* CARD */
+.card-group {
+  display: flex;
+  margin-top: 75px;
+}
+
+.card-body {
+  width: 200px;
+  height: 330px;
+  background: white;
+  margin: 0 40px;
+  border-radius: 5px;
+}
+
+.card-body .image {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0 30px;
+}
+
+.card-text p:first-child {
+  text-align: center;
+  margin: 0 10px;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.card-text p:nth-child(2) {
+  text-align: center;
+  margin: 0 15px;
+  font-size: 16px;
+  color: #878787;
+}
+/* /CARD/ */

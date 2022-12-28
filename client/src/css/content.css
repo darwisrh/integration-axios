@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+/* CONTENT */
+.container {
+  width: 1200px;
+  margin: 20px auto;
+}
+
+.content {
+  margin: 50px 0;
+}
+
+.content h1 {
+  font-size: 46px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.m-0 p a {
+  font-size: 22px;
+  font-weight: 800;
+  text-decoration: none;
+  color: black;
+}
+
+.m-0 ul li {
+  display: inline;
+}
+
+.m-0 ul li:first-child {
+  color: #FFAF00;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.m-0 ul li:last-child {
+  color: #878787;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.m-0 ul {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px;
+  margin: 0;
+}
+
+.tour-card-cont {
+  display: flex;
+  flex-wrap: wrap;
+}

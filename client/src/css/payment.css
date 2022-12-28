@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.payment-cont {
+  display: flex;
+  justify-content: center;
+}
+
+.payment-wrapper {
+  width: 1150px;
+  padding: 20px 60px;
+  background-color: white;
+  margin: 100px 0 50px;
+  border: 2px solid #B7B7B7;
+  border-radius: 5px;
+}
+
+.payment-header {
+  display: flex;
+}
+
+.payment-header .left-top {
+  flex: 50%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.payment-header .right-top {
+  flex: 50%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.payment-header .right-top .head {
+  text-align: end;
+  margin: 0px;
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.payment-header ul li {
+  display: inline;
+}
+
+.time {
+  display: flex;
+}
+
+.time p:first-child {
+  margin: 0 6px;
+  font-weight: 800;
+  font-size: 16px;
+  color: #878787;
+}
+
+.time p:last-child {
+  margin: 0;
+  font-weight: 200px;
+  font-size: 16px;
+}
+
+/* Middle Payment */
+.middle-payment {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.mid-payment-a p:first-child {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 0px;
+}
+
+.mid-payment-a p:nth-child(2) {
+  font-size: 14px;
+  font-weight: 400;
+  color: #959595;
+}
+
+.mid-payment-a p:last-child {
+  font-size: 12px;
+  font-weight: 400;
+  color: #EC7A7A;
+}
+
+.mid-payment-b div:first-child {
+  margin-bottom: 20px;
+}
+
+.mid-payment-c div:first-child {
+  margin-bottom: 20px;
+}
+
+.mid-payment-d img {
+  border: 3px solid black;
+}
+
+.mid-payment-d p {
+  font-size: 13px;
+  color: #818181;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* End Payment */
+.end-pay .top {
+  display: flex;
+}
+
+.end-pay .bottom {
+  display: flex;
+}
+
+.end-pay .top p {
+  width: 165px;
+  margin-bottom: 0;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.end-pay hr {
+  margin: 10px 10px;
+  width: 1150px;
+  position: relative;
+  right: 72px;
+}
+
+.end-pay .bottom p {
+  width: 165px;
+  margin-bottom: 0;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.end-pay .bottom p:nth-child(5) {
+  line-height: 25px;
+}
+
+.end-pay .bottom p:nth-child(5), .bottom p:last-child {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/*=================*/
+
+/* .more-bottom {
+  display: flex;
+  justify-content: end;
+}
+
+.more-bottom p {
+  width: 165px;
+  margin-bottom: 0;
+}
+
+.more-bottom p:first-child {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.more-bottom p:last-child {
+  font-size: 18px;
+  font-weight: 800;
+  color: #FF0000;
+  margin-right: 36px;
+} */
+
+/*=================*/
+
+.buttons {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 100px;
+}
+
+.buttons div {
+  margin-right: 100px;
+}

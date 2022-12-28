@@ -1,0 +1,33 @@
+[
+  {
+    "id": 1,
+    "country": "Australia",
+    "title": "6D/4N Fun Tassie Vacation ...",
+    "price": 12398000,
+    "image": "images/australia.png"
+  },
+
+  {
+    "id": 2,
+    "country": "Japan",
+    "title": "8D/6N Wonderful Autum ...",
+    "price": 28999000,
+    "image": "images/japan.png"
+  },
+
+  {
+    "id": 3,
+    "country": "South Korea",
+    "title": "6D/4N Exciting Summer in ...",
+    "price": 10288000,
+    "image": "images/korea.png"
+  },
+
+  {
+    "id": 4,
+    "country": "Indonesia",
+    "title": "4D/3N Labuan Bajo Delight",
+    "price": 10488000,
+    "image": "images/indonesia.png"
+  }
+]

@@ -1,0 +1,18 @@
+.w-100 {
+  width: 1150px;
+}
+
+.modalContent {
+  width: 1150px;
+  margin-top: 100px;
+  position: relative;
+  left: 100px;
+  padding: 10px;
+}
+
+@media (min-width: 576px){
+.modal-90w {
+    max-width: var(--bs-modal-width);
+    margin: 0;
+}
+}

@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "user": "Radif Ganteng",
+    "trip": "6D/4N Fun Tassie Vaca ...",
+    "buktiTransfer": "bca.jpg",
+    "statusPayment": "Pending"
+  },
+
+  {
+    "id": 2,
+    "user": "Haris Rahman",
+    "trip": "6D/4N Exciting Summer...",
+    "buktiTransfer": "bni.jpg",
+    "statusPayment": "Approve"
+  },
+
+  {
+    "id": 3,
+    "user": "Amin Subagiyo",
+    "trip": "6D/4N Fun Tassie Vaca ...",
+    "buktiTransfer": "permata.jpg",
+    "statusPayment": "Cancel"
+  },
+
+  {
+    "id": 4,
+    "user": "Haris Astina",
+    "trip": "6D/4N Wonderful Autum ...",
+    "buktiTransfer": "permata.jpg",
+    "statusPayment": "Cancel"
+  },
+
+  {
+    "id": 5,
+    "user": "Aziz Oni On",
+    "trip": "6D/4N Magic Tokyo ...",
+    "buktiTransfer": "bi.jpg",
+    "statusPayment": "Pending"
+  }
+]

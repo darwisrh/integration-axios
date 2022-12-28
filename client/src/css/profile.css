@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+/* Profile Card */
+.profile-content {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.profile-card-wrap {
+  width: 800px;
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  border-radius: 5px;
+}
+
+.left-side h3 {
+  font-size: 34px;
+  font-weight: 800;
+  margin-bottom: 40px;
+}
+
+.name, .email, .number, .address {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.name div:first-child, .email div:first-child, .number div:first-child, .address div:first-child {
+  margin-right: 20px;
+}
+
+.left-side img {
+  width: 36px;
+  height: 36px;
+}
+
+.right-side-prof img {
+  width: 280px;
+  border-radius: 5px;
+}
+
+.left-side {
+  flex: 50%;
+}
+
+.right-side-prof {
+  flex: 50%;
+  display: flex;
+  justify-content: end;
+}
+
+.right-side-prof button {
+  font-size: 18px;
+  background-color: #FFAF00;
+  border: 1px solid #FFAF00;
+  width: 280px;
+  color: white;
+  margin-top: 20px;
+  padding: 10px 0;
+  border-radius: 5px;
+}
+
+.payment-card-prof-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.payment-card-prof {
+  padding: 20px;
+  width: 1150px;
+  background-color: white;
+  border-radius: 5px;
+  border: 2px solid #B7B7B7;
+}
+
+.bottom-payment-prof {
+  position: relative;
+  left: 40px;
+}
+
+.profile-cont {
+  margin-bottom: 130px;
+}
