@@ -55,3 +55,22 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.card-wrapper .card-image {
+  height: 215px;
+  margin-bottom: 15px;
+}
+
+.quantity {
+  position: absolute;
+  top: 20px;
+  left: 265px;
+  background-color: white;
+  font-weight: 600;
+  width: 54px;
+  height: 30px;
+  border-radius: 5px 0 0 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

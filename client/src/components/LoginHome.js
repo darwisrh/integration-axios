@@ -101,17 +101,8 @@ const LoginHome = ({ isLogin }) => {
             <h1>Group Tour</h1>
           </div>
           <div className='tour-card-cont'>
-              
-              {/* <Card style={{ width: '330px', padding: '10px', height: '330px', margin: '20px' }} key={tour.id}>
-                <Card.Img variant="top" src={tour.image} />
-                <div className='m-0 p-0'>
-                  <p style={{margin: '10px 0'}}><Link to={`/name-detail/${tour.id}`} element={<LoginDetailTour />}>{tour.title}</Link></p>
-                  <ul>
-                    <li>IDR. {tour.price.toLocaleString()}</li>
-                    <li>{tour.country}</li>
-                  </ul>
-                </div>
-              </Card> */}
+            
+            Product Cards Here
 
           </div>
         </div>

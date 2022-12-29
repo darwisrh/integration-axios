@@ -51,11 +51,11 @@ const Header = () => {
             left: "1230px"
           }} src={Hibiscus} alt="hibiscus" />
 
-          <img style={{
+          {/* <img style={{
             position: "absolute",
             top: "1625px",
             left: "1225px"
-          }} src={Vector} alt="vector" />
+          }} src={Vector} alt="vector" /> */}
 
           <img style={{
             position: "absolute",
