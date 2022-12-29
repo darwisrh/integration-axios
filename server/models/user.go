@@ -7,6 +7,7 @@ type User struct {
 	Password string `json:"password" gorm:"type: varchar(255)"`
 	Phone    string `json:"phone" gorm:"type: varchar(255)"`
 	Address  string `json:"address" gorm:"type: varchar(255)"`
+	Role     string `json:"role" gorm:"type: varchar(255)"`
 }
 
 type UserTransactionRes struct {

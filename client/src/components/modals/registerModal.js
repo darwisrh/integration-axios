@@ -6,16 +6,17 @@ import Palm from './images/Palm2.png';
 import Hibiscus from './images/hibiscus2.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function RegisterModal({ show, setShow, handleShow }) {
+// Register Config
+import { useMutation } from "react-query"
+import { API } from "../../config/api"
 
-  // Register Handle
+/* Register Handle
   const [nama, setNama] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [phone, setPhone] = useState("")
-  const [address, setAddress] = useState("")
-
-  const handleSubmit = (e) => {
+  const [address, setAddress] = useState("") */
+/*  const handleSubmit = (e) => {
     e.preventDefault()
     if( !nama || !email || !password || !phone || !address) {
       handleTrue()
@@ -29,8 +30,50 @@ function RegisterModal({ show, setShow, handleShow }) {
       console.log("Data saved")
     }
     
-  }
+  } */
 
+
+function RegisterModal({ show, setShow, handleShow }) {
+
+  const [form, setForm] = useState({
+    fullname: "",
+    email: "",
+    password: "",
+    phone: "",
+    address: ""
+
+  })
+
+  const handleOnChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    })
+  }
+    
+  const handleSubmit = useMutation(async (e) => {
+    try {
+      e.preventDefault()
+
+      // Mengkonfigurasi tipe konten
+      const config = {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+
+      const body = JSON.stringify(form)
+
+      // Memasukkan data user ke Database
+      const response = await API.post('/register', body, config)
+      
+
+    } catch (err) {
+      console.log(err)
+    }
+  })
+
+  // Close functions
   const handleClose = () => setShow(false);
   const handleTrue = () => setShow(true);
 
@@ -76,7 +119,7 @@ function RegisterModal({ show, setShow, handleShow }) {
         <Modal.Body style={{
           padding: "0 20px"
         }}>
-          <Form style={{overflow: "hidden"}} onSubmit={handleSubmit}>
+          <Form style={{overflow: "hidden"}} onSubmit={(e) => handleSubmit.mutate(e)}>
 
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label style={{
@@ -92,7 +135,8 @@ function RegisterModal({ show, setShow, handleShow }) {
             }}
                 type="text"
                 autoFocus
-                onChange={e => setNama(e.target.value)}
+                name="fullname"
+                onChange={handleOnChange}
               />
             </Form.Group>
 
@@ -110,7 +154,8 @@ function RegisterModal({ show, setShow, handleShow }) {
             }}
                 type="email"
                 autoFocus
-                onChange={(e) => setEmail(e.target.value)}
+                name="email"
+                onChange={handleOnChange}
               />
             </Form.Group>
 
@@ -130,7 +175,8 @@ function RegisterModal({ show, setShow, handleShow }) {
               }}
                   type="password"
                   autoFocus
-                  onChange={(e) => setPassword(e.target.value)}
+                  name="password"
+                  onChange={handleOnChange}
                   />
               </Form.Group>
 
@@ -150,7 +196,8 @@ function RegisterModal({ show, setShow, handleShow }) {
               }}
                   type="number"
                   autoFocus
-                  onChange={(e) => setPhone(e.target.value)}
+                  name="phone"
+                  onChange={handleOnChange}
                   />
               </Form.Group>
 
@@ -171,7 +218,8 @@ function RegisterModal({ show, setShow, handleShow }) {
               }}
                   as="textarea"
                   autoFocus
-                  onChange={e => setAddress(e.target.value)}
+                  name="address"
+                  onChange={handleOnChange}
                   />
 
             <div style={{

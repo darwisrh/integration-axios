@@ -13,12 +13,6 @@ import (
 
 func main() {
 
-	// Set untuk Header, Method dan Origin
-	var AllowedHeaders = handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
-	var AllowedMethods = handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS", "PATCH", "DELETE"})
-	var AllowedOrigins = handlers.AllowedOrigins([]string{"*"})
-	var port = "6000"
-
 	// Database
 	mysql.DatabaseInit()
 
@@ -29,6 +23,12 @@ func main() {
 
 	// Untuk mengakses file upload
 	r.PathPrefix("/uploads").Handler(http.StripPrefix("/uploads/", http.FileServer(http.Dir("./uploads"))))
+
+	// Set untuk Header, Method dan Origin
+	var AllowedHeaders = handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
+	var AllowedMethods = handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS", "PATCH", "DELETE"})
+	var AllowedOrigins = handlers.AllowedOrigins([]string{"*"})
+	var port = "6000"
 
 	fmt.Println("server running localhost:" + port)
 	http.ListenAndServe("localhost:"+port, handlers.CORS(AllowedHeaders, AllowedMethods, AllowedOrigins)(r))

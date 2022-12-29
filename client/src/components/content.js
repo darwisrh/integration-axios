@@ -16,7 +16,7 @@ const Content = ({ cardTour }) => {
           <h1>Group Tour</h1>
         </div>
         <div className='tour-card-cont'>
-          <TourCard cardTour={cardTour}/>
+          
         </div>
       </div>
     </>

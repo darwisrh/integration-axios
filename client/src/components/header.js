@@ -28,7 +28,7 @@ const buttonStyle = {
   borderRadius: "5px"
 }
 
-const Header = ({isLogin, isLogAdmin, admin}) => {
+const Header = () => {
 
   // Register Modal
   const [showR, setShowR] = useState(false);
@@ -78,11 +78,8 @@ const Header = ({isLogin, isLogAdmin, admin}) => {
                     handleClose={handleClose} 
                     handleShowR={handleShow} 
                     style={buttonStyle} 
-                    value="Login" 
-                    isLogin={isLogin} 
+                    value="Login"
                     handleShowL={handleShowL}
-                    isLogAdmin={isLogAdmin}
-                    admin={admin}
                     /></li>
                   <li><RegisterModal 
                     show={showR} 

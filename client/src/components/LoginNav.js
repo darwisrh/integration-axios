@@ -1,5 +1,7 @@
 import LoginHome from "./LoginHome"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useContext, useState } from "react"
+import { UserContext } from "../context/userContext"
 
 // Icons
 import Hibiscus from "../images/hibiscus.png"
@@ -7,7 +9,20 @@ import Palm from "../images/palm.png"
 import Vector from "../images/Vector.png"
 import Icon from '../images/Icon.png'
 
-const LoginNav = ({ test, Drop, isLogin, admin, isLogAdmin, cardTour }) => {
+const LoginNav = ({ Drop, isLogin, cardTour }) => {
+
+  // Check Auth
+  const navigate = useNavigate()
+
+  const [state] = useContext(UserContext)
+  const checkAuth = () => {
+    if (state.isLogin === true) {
+      navigate('/')
+    }
+  }
+
+  checkAuth()
+  console.log(state)
 
   return (
     <header className="header">
@@ -26,13 +41,13 @@ const LoginNav = ({ test, Drop, isLogin, admin, isLogAdmin, cardTour }) => {
         <nav>
           <div className="left-side">
             <ul>
-              <li><Link to={admin} element={LoginHome}><img src={Icon} alt="Icon" /></Link></li>
+              <li><Link to='/home' element={LoginHome}><img src={Icon} alt="Icon" /></Link></li>
             </ul>
           </div>
 
           <div className="right-side">
             <ul>
-              <Drop isLogin={isLogin} isLogAdmin={isLogAdmin} cardTour={cardTour}/>
+              <Drop isLogin={isLogin}  cardTour={cardTour}/>
             </ul>
           </div>
         </nav>

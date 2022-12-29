@@ -1,5 +1,5 @@
 import './loginModal.css'
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Palm from './images/Palm2.png';
@@ -7,36 +7,64 @@ import Hibiscus from './images/hibiscus2.png';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function LoginModal({show, setShow, handleClose, handleShowR, style, value, isLogin, handleShowL, isLogAdmin, admin}) {
+// Fetching Stuff
+import { useMutation } from 'react-query';
+import { API } from '../../config/api';
+import { UserContext } from '../../context/userContext';
+
+function LoginModal({show, setShow, handleClose, handleShowR, style, value, handleShowL}) {
 
   const navigate = useNavigate()
 
-  // User
-  const [emailInput, setEmail] = useState("")
-  const [passwordInput, setPassword] = useState("")
+  const [state, dispatch] = useContext(UserContext)
 
-  const handleLogin = (e) => {
-    e.preventDefault()
+  const [message, setMessage] = useState(null)
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    role: "user"
+  })
 
-    let email = localStorage.getItem("email").replace(/"/g, "")
-    let password = localStorage.getItem("password").replace(/"/g, "")
+  const {email, password} = form
 
-    // Admin
-    let emailAd = admin.emailAd
-    let passAd = admin.passAd
-
-    if(!emailInput || !passwordInput) {
-      alert("Fill all the field")
-    } else if (emailInput === email && passwordInput === password) {
-      isLogin(true)
-      navigate("/name-home")
-    } else if (emailInput === emailAd && passwordInput === passAd) {
-      isLogAdmin(true)
-      navigate("/income-transaction")
-    } else {
-      alert("Cannot find the data, make sure you register first!!")
-    }
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    })
   }
+
+  const handleSubmit = useMutation(async (e) => {
+    try {
+      e.preventDefault()
+
+      // Config
+      const config = {
+        header: {
+          'Content-Type': 'application/json'
+        }
+      }
+
+      const body = JSON.stringify(form)
+      const response = await API.post('/login', body, config)
+
+      // Checking
+      if (response?.status === 200){
+        dispatch({
+          type: 'LOGIN_SUCCES',
+          payload: response.data.data,
+        })
+      }
+
+      if (response.data.data.role === 'user') {
+        navigate('/home')
+      } else {
+        navigate('/')
+      }
+    } catch(err) {
+      console.log(err);
+    }
+  })
 
   return (
     <>
@@ -73,7 +101,7 @@ function LoginModal({show, setShow, handleClose, handleShowR, style, value, isLo
         <Modal.Body style={{
           padding: "0 20px"
         }}>
-          <Form onSubmit={handleLogin}>
+          <Form onSubmit={(e) => handleSubmit.mutate(e)}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label style={{
                 fontWeight: "800",
@@ -88,9 +116,8 @@ function LoginModal({show, setShow, handleClose, handleShowR, style, value, isLo
             }}
                 type="email"
                 autoFocus
-                onChange={e => {
-                  setEmail(e.target.value)
-                }}
+                name="email"
+                onChange={handleChange}
               />
             </Form.Group>
             <Form.Group 
@@ -109,9 +136,8 @@ function LoginModal({show, setShow, handleClose, handleShowR, style, value, isLo
             }}
                 type="password"
                 autoFocus
-                onChange={e => {
-                  setPassword(e.target.value)
-                }}
+                name="password"
+                onChange={handleChange}
                 />
             </Form.Group>
 

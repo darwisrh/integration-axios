@@ -9,7 +9,6 @@ import ProfileDrop from "./modals/ProfileDd";
 import Card from 'react-bootstrap/Card';
 import LoginDetailTour from "./LoginDetailTour";
 import { useState } from "react";
-import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Icons
@@ -26,7 +25,7 @@ const LoginNav = ({isLogin}) => {
     <nav>
       <div className="left-side">
         <ul>
-          <li><Link to='/name-home' element={LoginHome}><img src={Icon} alt="Icon" /></Link></li>
+          <li><Link to='/home' element={LoginHome}><img src={Icon} alt="Icon" /></Link></li>
         </ul>
       </div>
 
@@ -39,7 +38,7 @@ const LoginNav = ({isLogin}) => {
 
 let HomeLogin = '/name-home'
 
-const LoginHome = ({ isLogin, cardTour }) => {
+const LoginHome = ({ isLogin }) => {
 
   let [searchTerm, setTerm] = useState("")
 
@@ -67,7 +66,7 @@ const LoginHome = ({ isLogin, cardTour }) => {
                   right: "1230px"
                 }} src={Palm} alt="palm" />
 
-                  <LoginNav isLogin={isLogin} admin={HomeLogin}/>
+                  <LoginNav isLogin={isLogin}/>
 
                   <div className="welcome-text">
                     <p>Explore</p>
@@ -102,17 +101,8 @@ const LoginHome = ({ isLogin, cardTour }) => {
             <h1>Group Tour</h1>
           </div>
           <div className='tour-card-cont'>
-              {
-            cardTour.filter((val) => {
-              if(searchTerm == "") {
-                return val
-              } else if(val.country.toLowerCase().includes(searchTerm.toLowerCase())) {
-                return val
-              } else if(val.title.toLowerCase().includes(searchTerm.toLowerCase())) {
-                return val
-              }
-            }).map((tour) => (
-              <Card style={{ width: '330px', padding: '10px', height: '330px', margin: '20px' }} key={tour.id}>
+              
+              {/* <Card style={{ width: '330px', padding: '10px', height: '330px', margin: '20px' }} key={tour.id}>
                 <Card.Img variant="top" src={tour.image} />
                 <div className='m-0 p-0'>
                   <p style={{margin: '10px 0'}}><Link to={`/name-detail/${tour.id}`} element={<LoginDetailTour />}>{tour.title}</Link></p>
@@ -121,9 +111,8 @@ const LoginHome = ({ isLogin, cardTour }) => {
                     <li>{tour.country}</li>
                   </ul>
                 </div>
-              </Card>
-            ))
-          }
+              </Card> */}
+
           </div>
         </div>
       </div>
