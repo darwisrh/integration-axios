@@ -1,6 +1,5 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
-import Home from '../Home';
 import IncomeTrip from './incomeTrip';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -74,7 +73,7 @@ function AdminDrop() {
           </Dropdown.Item>
           <Dropdown.Divider style={dropDiv}/>
           <Dropdown.Item style={dropItem} href="#/action-3">
-            <Link style={dropItem} to="/home" element={Home}>
+            <Link style={dropItem}>
               <img style={img} src={Logout} alt="user" />
               <p style={fonts}>Logout</p>
             </Link>

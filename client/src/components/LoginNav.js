@@ -1,6 +1,6 @@
 import LoginHome from "./LoginHome"
 import { Link, useNavigate } from "react-router-dom"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { UserContext } from "../context/userContext"
 
 // Icons
@@ -47,7 +47,7 @@ const LoginNav = ({ Drop, isLogin, cardTour }) => {
 
           <div className="right-side">
             <ul>
-              <Drop isLogin={isLogin}  cardTour={cardTour}/>
+              <Drop isLogin={isLogin} cardTour={cardTour}/>
             </ul>
           </div>
         </nav>

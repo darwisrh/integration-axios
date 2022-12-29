@@ -4,6 +4,10 @@ import DetailProfile from '../detailProfile';
 import LoginPayment from '../LoginPayment';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { useContext, useState } from 'react';
+import { UserContext } from '../../context/userContext';
+import { useNavigate } from 'react-router-dom';
+
 // Icons
 import Profile from './images/profile.png'
 import User from './images/user.png'
@@ -11,8 +15,6 @@ import Pay from './images/bill.png'
 import Logout from './images/logout.png'
 import Polygon from './images/polygon.png'
 
-// JSON
-import cardTour from '../json/Tours.json'
 
 const dropDown = {
   width: "200px",
@@ -60,7 +62,17 @@ const polygon = {
   left: "124px"
 }
 
-function ProfileDrop({ isLogin, isLogAdmin }) {
+function ProfileDrop() {
+
+  const navigate = useNavigate()
+  const [state] = useContext(UserContext)
+  const hanldleClick = () => {
+    state.isLogin = false
+    navigate('/')
+    localStorage.removeItem('token')
+  }
+  console.log(state);
+
 
   return (
     <>
@@ -84,10 +96,7 @@ function ProfileDrop({ isLogin, isLogAdmin }) {
             </Link>
           </Dropdown.Item>
           <Dropdown.Divider style={dropDiv}/>
-          <Dropdown.Item style={dropItem} onClick={() => {
-            isLogin(false)
-            isLogAdmin(false)
-            }}>
+          <Dropdown.Item style={dropItem} onClick={hanldleClick}>
             <div style={dropItem}>
               <img style={img} src={Logout} alt="user" />
               <p style={fonts}>Logout</p>

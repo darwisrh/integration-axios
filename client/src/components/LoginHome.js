@@ -6,8 +6,8 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Cards from './cards';
 import { Link } from 'react-router-dom';
 import ProfileDrop from "./modals/ProfileDd";
-import Card from 'react-bootstrap/Card';
-import LoginDetailTour from "./LoginDetailTour";
+// import Card from 'react-bootstrap/Card';
+// import LoginDetailTour from "./LoginDetailTour";
 import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 

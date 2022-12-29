@@ -53,10 +53,9 @@ function App() {
 
       // Mendapatkan data user
       let payload = response.data.data
-      console.log(payload);
+      
       // Mengambil token dari localstorage
       payload.token = localStorage.token
-      console.log(payload.token);
       // Mengirim data ke useContext
       dispatch({
         type: 'USER_SUCCES',
