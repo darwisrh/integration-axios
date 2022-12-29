@@ -15,8 +15,6 @@ const Content = () => {
     return response.data.data
   })
 
-  console.log(tourCards);
-
   return(
     <>
       <div className='container'>
