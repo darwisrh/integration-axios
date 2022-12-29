@@ -28,7 +28,7 @@ const Content = () => {
         tourCards?.map((tour) => (
           <Card style={{ width: '330px', padding: '10px', height: '330px', margin: '20px' }} className="card-wrapper">
             <div className="quantity">
-              {tour.quota}/30
+              0/{tour.quota}
             </div>
             <Card.Img className="card-image" variant="top" src={tour.image} />
             <div className='m-0 p-0'>
