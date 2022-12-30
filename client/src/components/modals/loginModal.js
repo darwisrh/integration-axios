@@ -22,11 +22,9 @@ function LoginModal({show, setShow, handleClose, handleShowR, style, value, hand
   const [form, setForm] = useState({
     email: "",
     password: "",
-    role: "user"
+    role: ""
   })
-
-  const {email, password} = form
-
+  
   const handleChange = (e) => {
     setForm({
       ...form,

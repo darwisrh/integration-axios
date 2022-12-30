@@ -12,6 +12,11 @@ import FotoProf from '../images/detailProfile.png';
 import Booking from '../images/Group.png'
 import Footer from './footer';
 
+// Fetching
+import { API } from '../config/api';
+import { useQuery } from 'react-query';
+import { useParams } from 'react-router-dom';
+
 // Styling
 const test = [
   {
@@ -66,12 +71,12 @@ const BioStyleB = {
 
 const ProfileCard = () => {
 
-  const nama = localStorage.getItem("nama")
-  const phone = localStorage.getItem("phone")
-  const email = localStorage.getItem("email")
-  const address = localStorage.getItem("address")
-
-
+  const profile = useParams()
+  let {data: user} = useQuery('usersCache', async () => {
+    const response = await API.get(`/user/${profile.id}`)
+    return response.data.data
+  })
+  console.log(user);
 
   return (
     <div className='profile-card-wrap'>
@@ -84,7 +89,7 @@ const ProfileCard = () => {
             <img src={Name} alt="" />
           </div>
           <div>
-            <p style={BioStyleA}>{nama}</p>
+            <p style={BioStyleA}>{'nama'}</p>
             <p style={BioStyleB}>Full name</p>
           </div>
         </div>
@@ -94,7 +99,7 @@ const ProfileCard = () => {
             <img src={Mail} alt="" />
           </div>
           <div>
-            <p style={BioStyleA}>{email}</p>
+            <p style={BioStyleA}>{'email'}</p>
             <p style={BioStyleB}>Email</p>
           </div>
         </div>
@@ -104,7 +109,7 @@ const ProfileCard = () => {
             <img src={Phone} alt="" />
           </div>
           <div>
-            <p style={BioStyleA}>{phone}</p>
+            <p style={BioStyleA}>{'phone'}</p>
             <p style={BioStyleB}>Mobile phone</p>
           </div>
         </div>
@@ -114,7 +119,7 @@ const ProfileCard = () => {
             <img src={Map} alt="" />
           </div>
           <div>
-            <p style={BioStyleA}>{address}</p>
+            <p style={BioStyleA}>{'address'}</p>
             <p style={BioStyleB}>Address</p>
           </div>
         </div>

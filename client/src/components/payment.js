@@ -53,41 +53,41 @@ export const HeaderPayment = () => {
   )
 }
 
-export const MiddlePayment = (source) => {
+export const MiddlePayment = ({booking, getCountry, getTitle, day, night, transportation, datetrip, accomodation}) => {
   return (
     <div className='middle-payment'>
 
       <div className='mid-payment-a'>
-        <p>{source.getTitle}</p>
-        <p>{source.getCountry}</p>
+        <p>{getTitle}</p>
+        <p>{getCountry}</p>
         <p>Waiting Payment</p>
       </div>
 
       <div className='mid-payment-b'>
         <div>
           <p style={MidStyle}>Date Trip</p>
-          <p style={MidStyleB}>26 August 2020</p>
+          <p style={MidStyleB}>{datetrip}</p>
         </div>
         <div>
           <p style={MidStyle}>Accomodation</p>
-          <p style={MidStyleB}>Hotel 4 Nights</p>
+          <p style={MidStyleB}>{accomodation}</p>
         </div>
       </div>
 
       <div className='mid-payment-c'>
         <div>
           <p style={MidStyle}>Duration</p>
-          <p style={MidStyleB}>6 Day 4 Night</p>
+          <p style={MidStyleB}>{day} Day {night} Night</p>
         </div>
         <div>
           <p style={MidStyle}>Transporartion</p>
-          <p style={MidStyleB}>Qatar Airways</p>
+          <p style={MidStyleB}>{transportation}</p>
         </div>
       </div>
 
       <div className='mid-payment-d'>
-        <img src={source.source.Booking} alt="booking" />
-        <p>{source.detail}</p>
+        <img src={booking} alt="booking" />
+        <p>{'source.detail'}</p>
       </div>
 
     </div>
@@ -127,9 +127,10 @@ const endPayment = [
 
 ]
 
-export const EndPayment = (styling) => {
+export const EndPayment = (props) => {
+  console.log(props);
   return (
-    <div style={styling.styling[3]}>
+    <div>
       
       <div className='end-pay'>
         <div className='top'>
@@ -145,12 +146,12 @@ export const EndPayment = (styling) => {
           <p>Male</p>
           <p>083896833112</p>
           <p>Qty                  :</p>
-          <p>{styling.doneCount}</p>
+          <p>{props.qtyCounter}</p>
         </div>
         <hr />
-        <div style={styling.styling[0]} className='more-bottom'>
-          <p style={styling.styling[1]}>Total                :</p>
-          <p style={styling.styling[2]}>IDR. {styling.priceUser}</p>
+        <div style={props.styling[0]} className='more-bottom'>
+          <p style={props.styling[1]}>Total                :</p>
+          <p style={props.styling[2]}>IDR. {props.price}</p>
         </div>
       </div>
 

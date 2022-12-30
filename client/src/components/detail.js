@@ -17,11 +17,11 @@ const test = [
   }
 ]
 
-const Detail = ({isLogin, isLogAdmin, cardTour, admin}) => {
+const Detail = () => {
   return (
     <>
-      <NavigationBar test={test} isLogin={isLogin} isLogAdmin={isLogAdmin} admin={admin}/>
-      <DetailContent isLogin={isLogin} isLogAdmin={isLogAdmin} cardTour={cardTour} admin={admin}/>
+      <NavigationBar test={test}/>
+      <DetailContent />
     </>
   )
 }

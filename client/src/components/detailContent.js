@@ -4,7 +4,6 @@ import RegisterModal from './modals/registerModal'
 import { useParams } from 'react-router-dom'
 
 // Detail Images
-import Opera from '../images/Details/detail1.png'
 import Detail2 from '../images/Details/detail2.png'
 import Detail3 from '../images/Details/detail3.png'
 import Detail4 from '../images/Details/detail4.png'
@@ -19,6 +18,8 @@ import Minus from '../images/Detail2/Minus.png'
 import Plus from '../images/Detail2/Plus.png'
 import { useState } from 'react'
 import LoginModal from './modals/loginModal'
+import { useQuery } from 'react-query';
+import { API } from '../config/api';
 
 const InfoDatas = ({img, title, header}) => {
   return (
@@ -42,39 +43,41 @@ const buttonStyle = {
   color: "white"
 }
 
-const DetailContent = ({isLogin, isLogAdmin, cardTour, admin}) => {
+const DetailContent = ({admin}) => {
+  // Register Modal
+  const [showR, setShowR] = useState(false);
+  const handleShow = () => setShowR(true);
+
+  // Login Modal
+  const [show, setShow] = useState()
+  const handleClose = () => setShow(false);
+  const handleShowL = () => setShow(true);
+  // Login Modal
 
     let detailId = useParams()
-    let cards = cardTour.find(card => card.id == detailId.id)
-    const {country, title, price} = cards
 
-    // Register Modal
-    const [showR, setShowR] = useState(false);
-    const handleShow = () => setShowR(true);
-  
-    // Login Modal
-    const [show, setShow] = useState()
-    const handleClose = () => setShow(false);
-    const handleShowL = () => setShow(true);
-    // Login Modal
+    let {data: tourDetail} = useQuery('tripCache', async () => {
+      const response = await API.get(`/trip/${detailId.id}`);
+      return response.data.data
+    })
 
-  const [counter, setCounter] = useState(1)
+    // let quantity = tourDetail?.qtyCounter
 
-  const plus = () => {
-    setCounter(counter + 1)
-  }
-
-  const minus = () => {
-    if (counter <= 1) {
-      counter = 1
-    }
-    setCounter(counter - 1)
-  }
-
-  let intPrice = Number(price)
-  let stringPrice = intPrice.toLocaleString()
-  let tourPrice = Number(price * counter)
-  let finalPrice = tourPrice.toLocaleString()
+    // let [counter, setCounter] = useState(quantity)
+    
+    // const plus = () => {
+    //   if (counter >= tourDetail?.quota - 1) {
+    //     counter = tourDetail?.quota
+    //   }
+    //   setCounter(counter + 1)
+    // }
+    
+    // const minus = () => {
+    //   if (counter <= 1) {
+    //     counter = 1
+    //   }
+    //   setCounter(counter - 1)
+    // }
 
   return (
     <>
@@ -82,13 +85,13 @@ const DetailContent = ({isLogin, isLogAdmin, cardTour, admin}) => {
       <div className="cont-wrapper">
 
         <div className="header-cont">
-          <h1>{title}</h1>
-          <p>{country}</p>
+          <h1>{tourDetail?.title}</h1>
+          <p>{tourDetail?.country.name}</p>
         </div>
 
         <div className="image-cont">
           <div>
-            <img src={Opera} alt="opera" />
+            <img src={tourDetail?.image} alt="opera" style={{width: "1018px", borderRadius: "5px"}}/>
           </div>
           <div className="detail-images">
             <img src={Detail2} alt="detail" />
@@ -103,11 +106,11 @@ const DetailContent = ({isLogin, isLogAdmin, cardTour, admin}) => {
           </div>
 
           <div className="info-data">
-            <InfoDatas img={Hotel} title="Hotel 4 Nights" header="Accommodation"/>
-            <InfoDatas img={Plane} title="Qatar Airways" header="Transportation"/>
-            <InfoDatas img={Meal} title="Included as ltinerary" header="Eat"/>
-            <InfoDatas img={Time} title="6 Days 4 Nights" header="Duration"/>
-            <InfoDatas img={Calendar} title="26 August 2020" header="Date Trip"/>
+            <InfoDatas img={Hotel} title={tourDetail?.accomodation} header="Accommodation"/>
+            <InfoDatas img={Plane} title={tourDetail?.transportation} header="Transportation"/>
+            <InfoDatas img={Meal} title={tourDetail?.eat} header="Eat"/>
+            <InfoDatas img={Time} title={`${tourDetail?.day} Day ${tourDetail?.night} Night`} header="Duration"/>
+            <InfoDatas img={Calendar} title={tourDetail?.datetrip} header="Date Trip"/>
           </div>
 
           <div className="description-cont">
@@ -115,7 +118,7 @@ const DetailContent = ({isLogin, isLogAdmin, cardTour, admin}) => {
               Description
             </p>
             <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+              {tourDetail?.description}
             </p>
           </div>
         </div>
@@ -125,7 +128,7 @@ const DetailContent = ({isLogin, isLogAdmin, cardTour, admin}) => {
             <ul>
               <li>
                 <p style={{ fontSize: "24px", fontWeight: "800", color: "#FFAF00", marginRight: "10px"}}>
-                IDR. {stringPrice}
+                IDR. {tourDetail?.price.toLocaleString()}
                 </p>
                 <p style={{ fontSize: "24px", fontWeight: "800"}}>
                   / Person
@@ -136,13 +139,13 @@ const DetailContent = ({isLogin, isLogAdmin, cardTour, admin}) => {
                   width: "26.62px",
                   height: "26.62px",
                   cursor: "pointer"
-                }} src={Minus} alt="minus" onClick={minus}/>
-                <p style={{ fontSize: "18px", fontWeight: "800"}}>{counter}</p>
+                }} src={Minus} alt="minus"/>
+                <p style={{ fontSize: "18px", fontWeight: "800"}}>{tourDetail?.qtyCounter}</p>
                 <img style={{
                   width: "26.62px",
                   height: "26.62px",
                   cursor: "pointer"
-                }} src={Plus} alt="plus" onClick={plus}/>
+                }} src={Plus} alt="plus"/>
               </li>
             </ul>
           </div>
@@ -152,7 +155,7 @@ const DetailContent = ({isLogin, isLogAdmin, cardTour, admin}) => {
           <div className="bottom-payment">
             <ul>
               <li>Total :</li>
-              <li>IDR. {finalPrice}</li>
+              <li>IDR. {tourDetail?.price.toLocaleString()}</li>
             </ul>
           </div>
         </div>
@@ -167,9 +170,7 @@ const DetailContent = ({isLogin, isLogAdmin, cardTour, admin}) => {
             handleShowR={handleShow} 
             style={buttonStyle} 
             value="BOOK NOW"
-            isLogin={isLogin}
             handleShowL={handleShowL}
-            isLogAdmin={isLogAdmin}
             admin={admin}
             />
           <div style={{visibility: "hidden", position: "absolute"}}>

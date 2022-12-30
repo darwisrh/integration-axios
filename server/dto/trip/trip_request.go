@@ -6,11 +6,12 @@ type TripRequest struct {
 	Accomodation string `json:"accomodation" form:"accomodation" `
 	Transport    string `json:"transport" form:"transport" `
 	Eat          string `json:"eat" form:"eat" `
-	Day          string `json:"day" form:"day" `
-	Night        string `json:"night" form:"night" `
+	Day          int    `json:"day" form:"day" `
+	Night        int    `json:"night" form:"night" `
 	Date         string `json:"date" form:"date" `
 	Price        int    `json:"price" form:"price" `
 	Kuota        int    `json:"kuota" form:"kuota" `
+	QtyCounter   int    `json:"qtycounter" form:"qtycounter"`
 	Description  string `json:"description" form:"description" `
 	Image        string `json:"image" form:"image" validate:"required"`
 }
@@ -21,11 +22,12 @@ type TripUpdateRequest struct {
 	Accomodation string `json:"accomodation" form:"accomodation"`
 	Transport    string `json:"transport" form:"transport"`
 	Eat          string `json:"eat" form:"eat"`
-	Day          string `json:"day" form:"day"`
-	Night        string `json:"night" form:"night"`
+	Day          int    `json:"day" form:"day"`
+	Night        int    `json:"night" form:"night"`
 	Date         string `json:"date" form:"date"`
 	Price        int    `json:"price" form:"price"`
 	Kuota        int    `json:"kuota" form:"kuota"`
+	QtyCounter   int    `json:"qtycounter" form:"qtycounter"`
 	Description  string `json:"description" form:"description"`
 	Image        string `json:"image" form:"image"`
 }

@@ -71,8 +71,6 @@ function ProfileDrop() {
     navigate('/')
     localStorage.removeItem('token')
   }
-  console.log(state);
-
 
   return (
     <>

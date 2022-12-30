@@ -9,21 +9,7 @@ import Palm from "../images/palm.png"
 import Vector from "../images/Vector.png"
 import Icon from '../images/Icon.png'
 
-const LoginNav = ({ Drop, isLogin, cardTour }) => {
-
-  // Check Auth
-  const navigate = useNavigate()
-
-  const [state] = useContext(UserContext)
-  const checkAuth = () => {
-    if (state.isLogin === true) {
-      navigate('/')
-    }
-  }
-
-  checkAuth()
-  console.log(state)
-
+const LoginNav = ({ test, Drop, isLogin, cardTour }) => {
   return (
     <header className="header">
       <div className="search">

@@ -8,11 +8,12 @@ type Trip struct {
 	Accomodation   string          `json:"accomodation" gorm:"type: varchar(100)"`
 	Transportation string          `json:"transportation" gorm:"type: varchar(100)"`
 	Eat            string          `json:"eat" gorm:"type: varchar(50)"`
-	Day            string          `json:"day" gorm:"type: varchar(50)"`
-	Night          string          `json:"night" gorm:"type: varchar(50)"`
+	Day            int             `json:"day" gorm:"type: int(11)"`
+	Night          int             `json:"night" gorm:"type: int(11)"`
 	DateTrip       string          `json:"datetrip" gorm:"type: varchar(50)"`
 	Price          int             `json:"price"`
 	Quota          int             `json:"quota"`
+	QtyCounter     int             `json:"qtyCounter"`
 	Description    string          `json:"description" gorm:"type: varchar(255)"`
 	Image          string          `json:"image" gorm:"type: varchar(100)"`
 }
@@ -30,6 +31,7 @@ type TripResponse struct {
 	DateTrip       string          `json:"datetrip" gorm:"type: varchar(50)"`
 	Price          int             `json:"price"`
 	Quota          int             `json:"quota"`
+	QtyCounter     int             `json:"qtycounter" gorm:"type: int(11)"`
 	Description    string          `json:"description" gorm:"type: varchar(255)"`
 	Image          string          `json:"image" gorm:"type: varchar(100)"`
 }

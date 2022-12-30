@@ -6,10 +6,12 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Cards from './cards';
 import { Link } from 'react-router-dom';
 import ProfileDrop from "./modals/ProfileDd";
-// import Card from 'react-bootstrap/Card';
-// import LoginDetailTour from "./LoginDetailTour";
 import { useState } from "react";
+import Card from 'react-bootstrap/Card';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+// Pages
+import LoginDetailTour from "./LoginDetailTour";
 
 // Icons
 import Percent from '../images/Icon/Percent.png';
@@ -19,7 +21,9 @@ import PersonB from '../images/Icon/PersonB.png';
 import Hibiscus from "../images/hibiscus.png";
 import Palm from "../images/palm.png";
 
-// Styling
+import { useQuery } from 'react-query';
+import { API } from '../config/api';
+
 const LoginNav = ({isLogin}) => {
   return (
     <nav>
@@ -39,6 +43,11 @@ const LoginNav = ({isLogin}) => {
 let HomeLogin = '/name-home'
 
 const LoginHome = ({ isLogin }) => {
+
+  let {data: cards} = useQuery('cardsCache', async () => {
+    const response = await API.get('/trips')
+    return response.data.data
+  })
 
   let [searchTerm, setTerm] = useState("")
 
@@ -102,7 +111,23 @@ const LoginHome = ({ isLogin }) => {
           </div>
           <div className='tour-card-cont'>
             
-            Product Cards Here
+                    {
+        cards?.map((tour) => (
+          <Card style={{ width: '330px', padding: '10px', height: '330px', margin: '20px' }} className="card-wrapper">
+            <div className="quantity">
+              {tour?.qtyCounter}/{tour?.quota}
+            </div>
+            <Card.Img className="card-image" variant="top" src={tour?.image} />
+            <div className='m-0 p-0'>
+              <p style={{margin: '10px 0'}}><Link to={`/l-trip/${tour?.id}`} element={<LoginDetailTour />}>{tour?.title}</Link></p>
+              <ul>
+                <li>IDR. {tour?.price.toLocaleString()}</li>
+                <li>{tour?.country.name}</li>
+              </ul>
+            </div>
+          </Card>
+        ))
+      }
 
           </div>
         </div>

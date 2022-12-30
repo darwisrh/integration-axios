@@ -85,9 +85,9 @@ func (h *handleTrip) DeleteTrip(w http.ResponseWriter, r *http.Request) {
 
 func convertResponseTrip(u models.Trip) tripdto.TripResponse {
 	return tripdto.TripResponse{
-		ID:    u.ID,
-		Title: u.Title,
-
+		ID:           u.ID,
+		Title:        u.Title,
+		CountryId:    u.CountryId,
 		Accomodation: u.Accomodation,
 		Transport:    u.Transportation,
 		Eat:          u.Eat,
@@ -96,6 +96,7 @@ func convertResponseTrip(u models.Trip) tripdto.TripResponse {
 		Date:         u.DateTrip,
 		Price:        u.Price,
 		Kuota:        u.Quota,
+		QtyCounter:   u.QtyCounter,
 		Description:  u.Description,
 		Image:        u.Image,
 	}
@@ -110,17 +111,22 @@ func (h *handleTrip) CreateTrip(w http.ResponseWriter, r *http.Request) {
 	countryid, _ := strconv.Atoi(r.FormValue("countryid"))
 	price, _ := strconv.Atoi(r.FormValue("price"))
 	kuota, _ := strconv.Atoi(r.FormValue("quota"))
+	day, _ := strconv.Atoi(r.FormValue("day"))
+	night, _ := strconv.Atoi(r.FormValue("night"))
+	QtyCounter, _ := strconv.Atoi(r.FormValue("qtycounter"))
+
 	request := tripdto.TripRequest{
 		Title:        r.FormValue("title"),
 		CountryId:    countryid,
 		Accomodation: r.FormValue("accomodation"),
 		Transport:    r.FormValue("transportation"),
 		Eat:          r.FormValue("eat"),
-		Day:          r.FormValue("day"),
-		Night:        r.FormValue("night"),
+		Day:          day,
+		Night:        night,
 		Date:         r.FormValue("date"),
 		Price:        price,
 		Kuota:        kuota,
+		QtyCounter:   QtyCounter,
 		Description:  r.FormValue("description"),
 		Image:        filename,
 	}
@@ -145,6 +151,7 @@ func (h *handleTrip) CreateTrip(w http.ResponseWriter, r *http.Request) {
 		DateTrip:       request.Date,
 		Price:          request.Price,
 		Quota:          request.Kuota,
+		QtyCounter:     request.QtyCounter,
 		Description:    request.Description,
 		Image:          request.Image,
 	}
@@ -176,6 +183,9 @@ func (h *handleTrip) UpdateTrip(w http.ResponseWriter, r *http.Request) {
 
 	price, _ := strconv.Atoi(r.FormValue("price"))
 	quota, _ := strconv.Atoi(r.FormValue("quota"))
+	day, _ := strconv.Atoi(r.FormValue("day"))
+	night, _ := strconv.Atoi(r.FormValue("night"))
+	QtyCounter, _ := strconv.Atoi(r.FormValue("qtycounter"))
 
 	if r.FormValue("title") != "" {
 		trip.Title = r.FormValue("title")
@@ -194,11 +204,11 @@ func (h *handleTrip) UpdateTrip(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.FormValue("day") != "" {
-		trip.Day = r.FormValue("day")
+		trip.Day = day
 	}
 
 	if r.FormValue("night") != "" {
-		trip.Night = r.FormValue("night")
+		trip.Night = night
 	}
 
 	if r.FormValue("date") != "" {
@@ -215,6 +225,10 @@ func (h *handleTrip) UpdateTrip(w http.ResponseWriter, r *http.Request) {
 
 	if r.FormValue("description") != "" {
 		trip.Description = r.FormValue("description")
+	}
+
+	if r.FormValue("qtycounter") != "" {
+		trip.QtyCounter = QtyCounter
 	}
 
 	data, err := h.TripRepository.UpdateTrip(trip)

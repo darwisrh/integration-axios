@@ -51,7 +51,7 @@ function IncomeTable({ inTrans, getCountry, getTitle }) {
             </tr>
           </thead>
           <tbody>
-            {
+            {/* {
               inTrans.map(income => (
                 <tr style={tableRow}>
                   <td>{income.id}</td>
@@ -62,7 +62,7 @@ function IncomeTable({ inTrans, getCountry, getTitle }) {
                   <td><AdminModal getCountry={getCountry} getTitle={getTitle}/></td>
                 </tr>
               ))
-            }
+            } */}
           </tbody>
           </Table>
         </div>

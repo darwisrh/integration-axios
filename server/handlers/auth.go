@@ -156,3 +156,60 @@ func (h *handlerAuth) CheckAuth(w http.ResponseWriter, r *http.Request) {
 	response := dto.SuccessResult{Code: http.StatusOK, Data: CheckAuthResponse}
 	json.NewEncoder(w).Encode(response)
 }
+
+func (h *handlerAuth) LoginAdmin(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	request := new(authdto.LoginRequest)
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	user := models.User{
+		Email:    request.Email,
+		Password: request.Password,
+		Role:     "admin",
+	}
+
+	user, err := h.AuthRepository.Login(user.Email)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		response := dto.ErrorResult{Code: http.StatusBadRequest, Message: "Email not found"}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	// Check Pass
+	isValid := bcrypt.CheckPasswordHash(request.Password, user.Password)
+	if !isValid {
+		w.WriteHeader(http.StatusBadRequest)
+		response := dto.ErrorResult{Code: http.StatusBadRequest, Message: "Password wrong"}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	//Generate Token
+	claims := jwt.MapClaims{}
+	claims["id"] = user.ID
+	claims["exp"] = time.Now().Add(time.Hour * 24).Unix() // 24 jam expired
+
+	token, errGenerateToken := jwtToken.GenerateToken(&claims)
+	if errGenerateToken != nil {
+		log.Println(errGenerateToken)
+		fmt.Println("Unauthorize")
+		return
+	}
+
+	loginResponse := authdto.LoginResponse{
+		Email: user.Email,
+		Token: token,
+		Role:  "admin",
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	response := dto.SuccessResult{Code: http.StatusOK, Data: loginResponse}
+	json.NewEncoder(w).Encode(response)
+}

@@ -2,7 +2,12 @@ import Form from 'react-bootstrap/Form';
 import LoginNav from "../LoginNav"
 import AdminDrop from "./dropDown"
 import Footer from '../footer';
-import { useNavigate } from 'react-router-dom';
+
+// Addtrip Config
+import { useMutation } from "react-query"
+import { API } from "../../config/api"
+import { useState } from 'react';
+import { useQuery } from 'react-query';
 
 // Styling
 const test = [
@@ -49,32 +54,70 @@ const formControl = {
 
 let admin = '/income-transaction'
 
-const AddTrip = ({form, setForm, setArray, oldArray}) => {
+const AddTrip = () => {
 
-  const navigate = useNavigate()
-  const {title, country, price} = form
+  let {data: country} = useQuery('countryCache', async () => {
+    const response = await API.get('/countries')
+    return response.data.data
+  })
 
-  const handleOnChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    })
-  }
+  const [form, setForm] = useState({
+    title: "",
+    accomodation: "",
+    transportation: "",
+    country_id: "",
+    eat: "",
+    day: "",
+    night: "",
+    date_trip: "",
+    price: "",
+    quota: "",
+    description: "",
+    image: ""
+  })
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setForm([...oldArray, {title, country, price, image: ''}])
-    console.log("Data Saved")
-  }
-
-  const handleClickButton = () => {
-    if(!form.accomodation || !form.country || !form.dateTrip || !form.day || !form.description || !form.eat || !form.night || !form.price || !form.quota || !form.title|| !form.transportation){
-      alert('Fill all the field!!!')
+  const handleChange = (e) => {
+    if (e.target.name === "image") {
+      setForm({
+        ...form,
+        [e.target.name]: e.target.files[0],
+      })
     } else {
-      navigate('/income-trip')
+      setForm({
+        ...form,
+        [e.target.name]: e.target.value,
+      })
     }
   }
+  console.log(form);
+  
 
+  const handleSubmit = useMutation(async (e) => {
+    try {
+      e.preventDefault()
+
+      const formData = new FormData()
+
+
+      formData.append('title', form.title)
+      formData.append('accomodation', form.accomodation)
+      formData.append('transportation', form.transportation)
+      formData.append('country_id', form.country_id)
+      formData.append('eat', form.eat)
+      formData.append('day', form.day)
+      formData.append('date_trip', form.date_trip)
+      formData.append('quota', form.quota)
+      formData.append('price', form.price)
+      formData.append('description', form.description)
+      formData.append('image', form.image)
+
+      // Memasukkan data user ke Database
+      const response = await API.post('/trip', formData)
+      console.log(response);
+    } catch (err) {
+      console.log(err)
+    }
+  })
 
   return (
     <>
@@ -84,42 +127,43 @@ const AddTrip = ({form, setForm, setArray, oldArray}) => {
           <h2 style={{fontWeight: "800", fontSize: "34px"}}>Add Trip</h2>
 
           <div style={formWrap}>
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={(e) => handleSubmit.mutate(e)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label style={font}>Title Trip</Form.Label>
-              <Form.Control style={formControl} type="text" name='title' onChange={handleOnChange} value={form.titleTrip}/>
+              <Form.Control style={formControl} type="text" name='title' onChange={handleChange} value={form.titleTrip}/>
             </Form.Group>
 
             <Form.Group className="mb-3">
               <Form.Label style={font}>Country</Form.Label>
-              <Form.Select style={formControl} name='country' onChange={handleOnChange} value={form.country}>
-                <option value="indonesia">Indonesia</option>
-                <option value="japan">Japan</option>
-                <option value="australia">Australia</option>
-                <option value="south korea">South Korea</option>
+              <Form.Select style={formControl} name='country_id' onChange={handleChange} value={form.country}>
+                {
+                  country?.map((country) => (
+                    <option key={country.id} value={country.id}>{country.name}</option>
+                  ))
+                }
               </Form.Select>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label style={font}>Accommodation</Form.Label>
-              <Form.Control style={formControl} type="text" name='accomodation' onChange={handleOnChange} value={form.accomodation}/>
+              <Form.Control style={formControl} type="text" name='accomodation' onChange={handleChange} value={form.accomodation}/>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label style={font}>Transportation</Form.Label>
-              <Form.Control style={formControl} type="text" name='transportation' onChange={handleOnChange} value={form.transportation}/>
+              <Form.Control style={formControl} type="text" name='transportation' onChange={handleChange} value={form.transportation}/>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label style={font}>Eat</Form.Label>
-              <Form.Control style={formControl} type="text" name='eat' onChange={handleOnChange} value={form.eat}/>
+              <Form.Control style={formControl} type="text" name='eat' onChange={handleChange} value={form.eat}/>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label style={font}>Duration</Form.Label>
               <div style={{display: "flex", justifyContent: "space-between"}}>
                 <div style={{width: "500px", display: "flex"}}>
-                  <Form.Control style={formControl} type="text" name='day' onChange={handleOnChange} value={form.day}/>
+                  <Form.Control style={formControl} type="text" name='day' onChange={handleChange} value={form.day}/>
                   <Form.Label style={{
                     fontSize: "20px",
                     fontWeight: "800",
@@ -131,7 +175,7 @@ const AddTrip = ({form, setForm, setArray, oldArray}) => {
                   }}>Day</p></Form.Label>
                 </div>
                 <div style={{width: "500px", display: "flex", marginRight: "50px"}}>
-                  <Form.Control style={formControl} type="text" name='night' onChange={handleOnChange} value={form.night}/>
+                  <Form.Control style={formControl} type="text" name='night' onChange={handleChange} value={form.night}/>
                   <Form.Label style={{
                       fontSize: "20px",
                       fontWeight: "800",
@@ -147,31 +191,31 @@ const AddTrip = ({form, setForm, setArray, oldArray}) => {
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label style={font}>Date Trip</Form.Label>
-              <Form.Control style={formControl} type="date" name='dateTrip' onChange={handleOnChange} value={form.dateTrip}/>
+              <Form.Control style={formControl} type="text" name='date_trip' onChange={handleChange} value={form.date_trip}/>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label style={font}>Price</Form.Label>
-              <Form.Control style={formControl} type="text" name='price' onChange={handleOnChange} value={form.price}/>
+              <Form.Control style={formControl} type="text" name='price' onChange={handleChange} value={form.price}/>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label style={font}>Quota</Form.Label>
-              <Form.Control style={formControl} type="text" name='quota' onChange={handleOnChange} value={form.quota}/>
+              <Form.Control style={formControl} type="text" name='quota' onChange={handleChange} value={form.quota}/>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
               <Form.Label style={font}>Description</Form.Label>
-              <Form.Control style={formControl} as="textarea" rows={3} name='description' onChange={handleOnChange} value={form.description}/>
+              <Form.Control style={formControl} as="textarea" rows={3} name='description' onChange={handleChange} value={form.description}/>
             </Form.Group>
 
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label style={font}>Image</Form.Label>
-              <Form.Control type="file" name='image' value={form.image} style={{
+              <Form.Control type="file" name='image' style={{
                   background: "#d3d3d3",
                   border: "2px solid #B1B1B1",
                   width: "300px"
-              }} />
+              }} onChange={handleChange}/>
             </Form.Group>
 
             <div style={{
@@ -188,7 +232,7 @@ const AddTrip = ({form, setForm, setArray, oldArray}) => {
                 fontWeight: "800",
                 border: "1px solid #FFAF00",
                 borderRadius: "5px"
-              }} type="submit" onClick={handleClickButton}>Add trip</button>
+              }} type="submit" >Add trip</button>
             </div>
           </Form>
           </div>

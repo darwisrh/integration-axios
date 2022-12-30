@@ -10,29 +10,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useMutation } from "react-query"
 import { API } from "../../config/api"
 
-/* Register Handle
-  const [nama, setNama] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [phone, setPhone] = useState("")
-  const [address, setAddress] = useState("") */
-/*  const handleSubmit = (e) => {
-    e.preventDefault()
-    if( !nama || !email || !password || !phone || !address) {
-      handleTrue()
-      return alert("Please fill all the field")
-    } else {
-      localStorage.setItem("nama", JSON.stringify(nama))
-      localStorage.setItem("email", JSON.stringify(email))
-      localStorage.setItem("password", JSON.stringify(password))
-      localStorage.setItem("phone", JSON.stringify(phone))
-      localStorage.setItem("address", JSON.stringify(address))
-      console.log("Data saved")
-    }
-    
-  } */
-
-
 function RegisterModal({ show, setShow, handleShow }) {
 
   const [form, setForm] = useState({

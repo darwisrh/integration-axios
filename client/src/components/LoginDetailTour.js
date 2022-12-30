@@ -4,6 +4,8 @@ import { useState } from "react"
 import LoginPayment from "./LoginPayment"
 import Footer from "./footer"
 import ProfileDrop from "./modals/ProfileDd"
+import { useQuery } from "react-query"
+import { API } from "../config/api"
 
 // Detail Images
 import Opera from '../images/Details/detail1.png'
@@ -48,30 +50,34 @@ const InfoDatas = ({img, title, header}) => {
 }
 
 let HomeLogin = '/name-home'
-const LoginDetailTour = ({ isLogin, cardTour, setPriceUser, setDoneCount, setGetCountry, setGetTitle}) => {
+
+const LoginDetailTour = () => {
   
-  let detailId = useParams()
-  let cards = cardTour.find(card => card.id == detailId.id)
-  let {country, title, price, id } = cards
+  let detail = useParams()
+  
+  let {data: detailTour} = useQuery('tourCache', async () => {
+    const response = await API.get(`/trip/${detail.id}`)
+    return response.data.data
+  })
+  console.log(detailTour);
 
+  // let [counter, setCounter] = useState(1)
 
-  let [counter, setCounter] = useState(1)
+  // const plus = () => {
+  //   setCounter(counter + 1)
+  // }
 
-  const plus = () => {
-    setCounter(counter + 1)
-  }
+  // const minus = () => {
+  //   if (counter <= 1) {
+  //     counter = 1
+  //   }
+  //   setCounter(counter - 1)
+  // }
 
-  const minus = () => {
-    if (counter <= 1) {
-      counter = 1
-    }
-    setCounter(counter - 1)
-  }
-
-  let intPrice = Number(price)
-  let stringPrice = intPrice.toLocaleString()
-  let tourPrice = Number(price * counter)
-  let finalPrice = tourPrice.toLocaleString()
+  // let intPrice = Number(price)
+  // let stringPrice = intPrice.toLocaleString()
+  // let tourPrice = Number(price * counter)
+  // let finalPrice = tourPrice.toLocaleString()
 
 
   // user
@@ -79,19 +85,19 @@ const LoginDetailTour = ({ isLogin, cardTour, setPriceUser, setDoneCount, setGet
 
   return (
     <>
-      <LoginNav test={test} Drop={ProfileDrop} isLogin={isLogin} admin={HomeLogin}/>
+      <LoginNav test={test} Drop={ProfileDrop}/>
       <div>
       <div className="detail-cont">
       <div className="cont-wrapper">
 
         <div className="header-cont">
-          <h1>{setGetTitle(title)}{title}</h1>
-          <p>{setGetCountry(country)}{country}</p>
+          <h1>{detailTour?.title}</h1>
+          <p>{detailTour?.country.name}</p>
         </div>
 
         <div className="image-cont">
           <div>
-            <img src={Opera} alt="opera" />
+            <img src={detailTour?.image} alt="opera" style={{width: "1018px", borderRadius: "5px"}}/>
           </div>
           <div className="detail-images">
             <img src={Detail2} alt="detail" />
@@ -106,11 +112,11 @@ const LoginDetailTour = ({ isLogin, cardTour, setPriceUser, setDoneCount, setGet
           </div>
 
           <div className="info-data">
-            <InfoDatas img={Hotel} title="Hotel 4 Nights" header="Accommodation"/>
-            <InfoDatas img={Plane} title="Qatar Airways" header="Transportation"/>
-            <InfoDatas img={Meal} title="Included as ltinerary" header="Eat"/>
-            <InfoDatas img={Time} title="6 Days 4 Nights" header="Duration"/>
-            <InfoDatas img={Calendar} title="26 August 2020" header="Date Trip"/>
+            <InfoDatas img={Hotel} title={detailTour?.accomodation} header="Accommodation"/>
+            <InfoDatas img={Plane} title={detailTour?.transportation} header="Transportation"/>
+            <InfoDatas img={Meal} title={detailTour?.eat} header="Eat"/>
+            <InfoDatas img={Time} title={`${detailTour?.day} Day ${detailTour?.night}`} header="Duration"/>
+            <InfoDatas img={Calendar} title={detailTour?.datetrip} header="Date Trip"/>
           </div>
 
           <div className="description-cont">
@@ -118,7 +124,7 @@ const LoginDetailTour = ({ isLogin, cardTour, setPriceUser, setDoneCount, setGet
               Description
             </p>
             <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+              {detailTour?.description}
             </p>
           </div>
         </div>
@@ -128,7 +134,7 @@ const LoginDetailTour = ({ isLogin, cardTour, setPriceUser, setDoneCount, setGet
             <ul>
               <li>
                 <p style={{ fontSize: "24px", fontWeight: "800", color: "#FFAF00", marginRight: "10px"}}>
-                IDR. {stringPrice}
+                IDR. {detailTour?.price.toLocaleString()}
                 </p>
                 <p style={{ fontSize: "24px", fontWeight: "800"}}>
                   / Person
@@ -139,13 +145,13 @@ const LoginDetailTour = ({ isLogin, cardTour, setPriceUser, setDoneCount, setGet
                   width: "26.62px",
                   height: "26.62px",
                   cursor: "pointer"
-                }} src={Minus} alt="minus" onClick={minus}/>
-                <p style={{ fontSize: "18px", fontWeight: "800"}}>{setDoneCount(counter)}{counter}</p>
+                }} src={Minus} alt="minus" />
+                <p style={{ fontSize: "18px", fontWeight: "800"}}>{detailTour?.qtyCounter}</p>
                 <img style={{
                   width: "26.62px",
                   height: "26.62px",
                   cursor: "pointer"
-                }} src={Plus} alt="plus" onClick={plus}/>
+                }} src={Plus} alt="plus" />
               </li>
             </ul>
           </div>
@@ -155,7 +161,7 @@ const LoginDetailTour = ({ isLogin, cardTour, setPriceUser, setDoneCount, setGet
           <div className="bottom-payment">
             <ul>
               <li>Total :</li>
-              <li>IDR. {setPriceUser(finalPrice)}{finalPrice}</li>
+              <li>IDR. {detailTour?.price.toLocaleString()}</li>
             </ul>
           </div>
         </div>
@@ -163,7 +169,7 @@ const LoginDetailTour = ({ isLogin, cardTour, setPriceUser, setDoneCount, setGet
         <hr />
 
         <div className="payment-button">
-          <Link className='button' to={`/name-home/name-payment/${id}`} element={<LoginPayment/>}>BOOK NOW</Link>
+          <Link to={`/payment/${detailTour?.id}`} className='button'>BOOK NOW</Link>
         </div>
       </div>
     </div>
