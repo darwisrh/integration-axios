@@ -81,6 +81,7 @@ function AddCountryMod() {
               fontWeight: "800", 
               color: "white"}}
               type="submit"
+              onClick={handleClose}
               >
               Save Changes
             </Button>

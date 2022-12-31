@@ -1,6 +1,9 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
 import IncomeTrip from './incomeTrip';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../context/userContext';
+import { useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Icons
@@ -55,7 +58,19 @@ const polygon = {
   left: "122px"
 }
 
+
 function AdminDrop() {
+
+  const navigate = useNavigate()
+  const [state] = useContext(UserContext)
+  const handleClick = () => {
+    state.isLogin = false
+    navigate('/')
+    localStorage.removeItem('token')
+    localStorage.removeItem('role')
+  }
+
+
   return (
     <>
       <Dropdown>
@@ -65,8 +80,8 @@ function AdminDrop() {
 
         <Dropdown.Menu style={dropDown}>
             <img style={polygon} src={Polygon} />
-          <Dropdown.Item style={dropItem} href="#/action-2">
-            <Link style={dropItem} to="/income-trip" element={IncomeTrip}>
+          <Dropdown.Item style={dropItem}>
+            <Link style={dropItem} to="/income-trips" element={IncomeTrip}>
               <img style={img} src={Journey} alt="user" />
               <p style={fonts}>Trip</p>
             </Link>
@@ -78,7 +93,7 @@ function AdminDrop() {
             </Link>
           </Dropdown.Item>
           <Dropdown.Divider style={dropDiv}/>
-          <Dropdown.Item style={dropItem} href="#/action-3">
+          <Dropdown.Item style={dropItem} onClick={handleClick}>
             <Link style={dropItem}>
               <img style={img} src={Logout} alt="user" />
               <p style={fonts}>Logout</p>

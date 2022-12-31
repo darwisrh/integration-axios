@@ -87,7 +87,6 @@ func (h *handlerAuth) Login(w http.ResponseWriter, r *http.Request) {
 	user := models.User{
 		Email:    request.Email,
 		Password: request.Password,
-		Role:     "user",
 	}
 
 	user, err := h.AuthRepository.Login(user.Email)
@@ -149,7 +148,7 @@ func (h *handlerAuth) CheckAuth(w http.ResponseWriter, r *http.Request) {
 		ID:       user.ID,
 		Fullname: user.Fullname,
 		Email:    user.Email,
-		Role:     "user",
+		Role:     user.Role,
 	}
 
 	w.Header().Set("Content-Type", "application/json")

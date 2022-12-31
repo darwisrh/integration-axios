@@ -79,7 +79,7 @@ const cardWrapper = {
   marginBottom: "50px"
 }
 
-const IncomeTrip = () => {
+const IncomeTrip = ({ home }) => {
 
   let {data: tourCards} = useQuery('tourCardsCache', async () => {
     const response = await API.get('/trips')
@@ -88,14 +88,14 @@ const IncomeTrip = () => {
 
     return (
       <>
-        <LoginNav test={test} Drop={AdminDrop} admin={admin}/>
+        <LoginNav test={test} Drop={AdminDrop} home={home}/>
         <div style={container}>
 
           <div style={wrapper}>
 
             <div style={header}>
               <h2 style={h2}>Income Trip</h2>
-              <Link to="/income-trip/addtrip" style={link}><p style={pLink}>Add Trip</p></Link>
+              <Link to="/income-trips/addtrip" style={link}><p style={pLink}>Add Trip</p></Link>
             </div>
 
             <div style={cardWrapper}>

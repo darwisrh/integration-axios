@@ -83,12 +83,7 @@ export default function AddCountry() {
                     <td style={{
                       display: "flex",
                       justifyContent: "space-between"
-                    }}>{country?.name}<p style={{
-                      marginRight: "15px", 
-                      fontWeight: "800", 
-                      color: "red",
-                      cursor: "pointer"
-                      }}>X</p></td>
+                    }}>{country?.name}</td>
                   </tr>
                 </tbody>
               ))
@@ -102,3 +97,10 @@ export default function AddCountry() {
     </>
   )
 }
+
+{/* <p style={{
+                      marginRight: "15px", 
+                      fontWeight: "800", 
+                      color: "red",
+                      cursor: "pointer"
+                      }}>X</p> */}

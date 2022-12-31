@@ -15,17 +15,12 @@ import { UserContext } from '../../context/userContext';
 function LoginModal({show, setShow, handleClose, handleShowR, style, value, handleShowL}) {
 
   const navigate = useNavigate()
-
   const [state, dispatch] = useContext(UserContext)
-
-  const [message, setMessage] = useState(null)
   const [form, setForm] = useState({
     email: "",
     password: "",
-    role: "user"
+    role: "admin"
   })
-
-  const {email, password} = form
 
   const handleChange = (e) => {
     setForm({
@@ -54,10 +49,13 @@ function LoginModal({show, setShow, handleClose, handleShowR, style, value, hand
           type: 'LOGIN_SUCCES',
           payload: response.data.data,
         })
+        window.location.reload()
       }
 
       if (response.data.data.role === 'user') {
         navigate('/home')
+      } else if (response.data.data.role === 'admin') {
+        navigate('/income-trips')
       } else {
         navigate('/')
       }

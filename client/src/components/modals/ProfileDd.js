@@ -74,6 +74,7 @@ function ProfileDrop() {
     state.isLogin = false
     navigate('/')
     localStorage.removeItem('token')
+    localStorage.removeItem('role')
   }
 
   let userId = state?.user.id

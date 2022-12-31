@@ -35,17 +35,17 @@ function App() {
 
   const [state, dispatch] = useContext(UserContext)
   
-  if (localStorage.token) {
-    setAuthToken(localStorage.token);
-  }
   useEffect(() => {
-
+    
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
     // Redirect Auth
     if (state.isLogin === false) {
       navigate('/');
     } else {
       if (state.user.role === 'admin') {
-        navigate('/income-transaction');
+        navigate('/income-trips');
       } else if (state.user.role === 'user') {
         navigate('/home');
       }
@@ -69,7 +69,7 @@ function App() {
       payload.token = localStorage.token
       // Mengirim data ke useContext
       dispatch({
-        type: 'USER_SUCCES',
+        type: 'LOGIN_SUCCES',
         payload,
       })
     } catch (error) {
@@ -83,6 +83,8 @@ function App() {
     }
   }, [])
 
+  let home = '/home'
+  let adminHome = '/income-transaction'
   return (
       <Routes>
         {/* Public Route */}
@@ -99,12 +101,12 @@ function App() {
         </Route>
 
         {/* Admin */}
-        {/* <Route element={<PrivateRouteAdmin />}> */}
+        <Route element={<PrivateRouteAdmin />}>
           <Route path="/income-transaction" element={<IncomeTransaction />}/>
-          <Route path="/addtrip" element={<AddTrip />}/>
-          <Route path="/income-trips" element={<IncomeTrip />} />
+          <Route path="/income-trips/addtrip" element={<AddTrip />}/>
+          <Route path="/income-trips" element={<IncomeTrip home={adminHome}/>} />
           <Route path="/addcountry" element={<AddCountry />} />
-        {/* </Route> */}
+        </Route>
       </Routes>
   );
 }

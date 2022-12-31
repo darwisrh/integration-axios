@@ -66,7 +66,7 @@ const Header = () => {
             <nav>
               <div className="left-side">
                 <ul>
-                  <li><Link to='/home' element={Home}><img src={Icon} alt="Icon" /></Link></li>
+                  <li><Link to='/' element={Home}><img src={Icon} alt="Icon" /></Link></li>
                 </ul>
               </div>
 

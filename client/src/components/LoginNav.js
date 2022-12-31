@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 // Icons
 import Icon from '../images/Icon.png'
 
-const LoginNav = ({ Drop, isLogin, cardTour }) => {
+const LoginNav = ({ Drop, isLogin, home }) => {
   return (
     <header className="header">
       <div className="search">
@@ -12,13 +12,13 @@ const LoginNav = ({ Drop, isLogin, cardTour }) => {
         <nav>
           <div className="left-side">
             <ul>
-              <li><Link to='/home' element={LoginHome}><img src={Icon} alt="Icon" /></Link></li>
+              <li><Link to={home} element={LoginHome}><img src={Icon} alt="Icon" /></Link></li>
             </ul>
           </div>
 
           <div className="right-side">
             <ul>
-              <Drop isLogin={isLogin} cardTour={cardTour}/>
+              <Drop isLogin={isLogin} />
             </ul>
           </div>
         </nav>
