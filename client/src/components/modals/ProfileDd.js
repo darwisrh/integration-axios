@@ -15,6 +15,10 @@ import Pay from './images/bill.png'
 import Logout from './images/logout.png'
 import Polygon from './images/polygon.png'
 
+// Get User
+import { useParams } from 'react-router-dom';
+import { API } from '../../config/api';
+import { useQuery } from 'react-query';
 
 const dropDown = {
   width: "200px",
@@ -72,6 +76,13 @@ function ProfileDrop() {
     localStorage.removeItem('token')
   }
 
+  let userId = state?.user.id
+
+  let {data: user} = useQuery('userCache', async () => {
+    const response = await API.get(`/user/${userId}`)
+    return response.data.data
+  })
+
   return (
     <>
       <Dropdown>
@@ -81,13 +92,13 @@ function ProfileDrop() {
 
         <Dropdown.Menu style={dropDown}>
             <img style={polygon} src={Polygon} />
-          <Dropdown.Item style={dropItem} href="#/action-1">
-            <Link style={dropItem} to="/detail-profile" element={DetailProfile}>
+          <Dropdown.Item style={dropItem}>
+            <Link style={dropItem} to={`/detail-profile/${user?.id}`} element={DetailProfile}>
               <img style={img} src={User} alt="user" />
               <p style={fonts}>Profile</p>
             </Link>
           </Dropdown.Item>
-          <Dropdown.Item style={dropItem} href="#/action-2">
+          <Dropdown.Item style={dropItem}>
             <Link style={dropItem} to={`/name-home/name-payment/:id`} element={LoginPayment}>
               <img style={img} src={Pay} alt="user" />
               <p style={fonts}>Pay</p>

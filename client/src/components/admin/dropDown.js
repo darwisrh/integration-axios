@@ -51,7 +51,7 @@ const dropDiv = {
 
 const polygon = {
   position: "absolute",
-  bottom: "110px",
+  bottom: "145px",
   left: "122px"
 }
 
@@ -69,6 +69,12 @@ function AdminDrop() {
             <Link style={dropItem} to="/income-trip" element={IncomeTrip}>
               <img style={img} src={Journey} alt="user" />
               <p style={fonts}>Trip</p>
+            </Link>
+          </Dropdown.Item>
+          <Dropdown.Item style={dropItem} href="#/action-2">
+            <Link style={dropItem} to="/addcountry">
+              <img style={img} src={Journey} alt="user" />
+              <p style={fonts}>Country</p>
             </Link>
           </Dropdown.Item>
           <Dropdown.Divider style={dropDiv}/>

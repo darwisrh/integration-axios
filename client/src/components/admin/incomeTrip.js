@@ -1,9 +1,14 @@
+import '../../css/header.css'
 import { Link } from "react-router-dom";
 import AdminDrop from "./dropDown";
 import LoginNav from "../LoginNav";
 import Card from 'react-bootstrap/Card';
 import Footer from "../footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+// Fetching Stuff
+import { useQuery } from "react-query";
+import { API } from "../../config/api";
 
 // Sike
 let admin = '/income-transaction'
@@ -74,27 +79,13 @@ const cardWrapper = {
   marginBottom: "50px"
 }
 
-const cardGroup = {
-  width: "350px",
-  height: "350px",
-  padding: "10px",
-  margin: "15px"
-}
+const IncomeTrip = () => {
 
-const cardBody = {
-  margin: "0",
-  width: "100%",
-  padding: "0"
-}
+  let {data: tourCards} = useQuery('tourCardsCache', async () => {
+    const response = await API.get('/trips')
+    return response.data.data
+  })
 
-const cardText = {
-  display: "flex",
-  justifyContent: "space-between"
-}
-
-
-const IncomeTrip = ({isLogAdmin, oldArray, form}) => {
-  console.log(oldArray);
     return (
       <>
         <LoginNav test={test} Drop={AdminDrop} admin={admin}/>
@@ -108,29 +99,23 @@ const IncomeTrip = ({isLogAdmin, oldArray, form}) => {
             </div>
 
             <div style={cardWrapper}>
-              {
-                oldArray.map((card) => (
-                  <Card style={cardGroup}>
-                  <Card.Img variant="top" src={card.image} />
-                  <Card.Body style={cardBody}>
-                    <Card.Title style={{fontWeight: 600, fontSize: "22px", margin: "15px 0 10px"}}>{card.title}</Card.Title>
-                    <Card.Text style={cardText}>
-                      <p style={{
-                        color: "#FFAF00",
-                        fontSize: "18px",
-                        fontWeight: "800",
-                        margin: 0
-                      }}>IDR. {card.price.toLocaleString()}</p>
-                      <p style={{
-                        color: "#878787",
-                        fontSize: "18px",
-                        margin: 0
-                      }}>{card.country}</p>
-                    </Card.Text>
-                  </Card.Body>
-              </Card>
-                ))
-              }
+            {
+          tourCards?.map((tour) => (
+          <Card style={{ width: '330px', padding: '10px', height: '330px', margin: '20px' }} className="card-wrapper">
+            <div className="quantity">
+              {tour?.qtyCounter}/{tour?.quota}
+            </div>
+            <Card.Img className="card-image" variant="top" src={tour?.image} />
+            <div className='m-0 p-0'>
+              <p style={{margin: '10px 0'}}><Link>{tour?.title}</Link></p>
+              <ul>
+                <li>IDR. {tour?.price.toLocaleString()}</li>
+                <li>{tour?.country.name}</li>
+              </ul>
+            </div>
+          </Card>
+        ))
+      }
             </div>
 
           </div>

@@ -2,12 +2,14 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Error from "./components/errorHandle";
 import Detail from "./components/detail";
+import { useNavigate } from "react-router-dom";
 
 // Admin Routes
 import PrivateRouteAdmin from "./components/adminPrivateRoute";
 import IncomeTransaction from "./components/admin/icomeTransaction";
 import AddTrip from "./components/admin/addTrip";
-import { useNavigate } from "react-router-dom";
+import IncomeTrip from "./components/admin/incomeTrip";
+import AddCountry from "./components/admin/addcountry";
 
 // User Routes
 import PrivateRoute from "./components/privateRoute";
@@ -93,14 +95,16 @@ function App() {
           <Route path="/home" element={<LoginHome />}/>
           <Route path="/l-trip/:id" element={<LoginDetailTour />} />
           <Route path="/payment/:id" element={<LoginPayment />} />
-          <Route path="/detail-profile" element={<DetailProfile />} />
+          <Route path="/detail-profile/:id" element={<DetailProfile />} />
         </Route>
 
         {/* Admin */}
-        <Route element={<PrivateRouteAdmin />}>
+        {/* <Route element={<PrivateRouteAdmin />}> */}
           <Route path="/income-transaction" element={<IncomeTransaction />}/>
           <Route path="/addtrip" element={<AddTrip />}/>
-        </Route>
+          <Route path="/income-trips" element={<IncomeTrip />} />
+          <Route path="/addcountry" element={<AddCountry />} />
+        {/* </Route> */}
       </Routes>
   );
 }

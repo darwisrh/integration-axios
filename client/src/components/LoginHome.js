@@ -111,7 +111,7 @@ const LoginHome = ({ isLogin }) => {
           </div>
           <div className='tour-card-cont'>
             
-                    {
+      {
         cards?.map((tour) => (
           <Card style={{ width: '330px', padding: '10px', height: '330px', margin: '20px' }} className="card-wrapper">
             <div className="quantity">

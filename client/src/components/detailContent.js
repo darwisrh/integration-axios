@@ -61,23 +61,22 @@ const DetailContent = ({admin}) => {
       return response.data.data
     })
 
-    // let quantity = tourDetail?.qtyCounter
 
-    // let [counter, setCounter] = useState(quantity)
+    let [counter, setCounter] = useState(tourDetail?.qtyCounter)
     
-    // const plus = () => {
-    //   if (counter >= tourDetail?.quota - 1) {
-    //     counter = tourDetail?.quota
-    //   }
-    //   setCounter(counter + 1)
-    // }
+    const plus = () => {
+      if (counter >= tourDetail?.quota - 1) {
+        counter = tourDetail?.quota
+      }
+      setCounter(counter + 1)
+    }
     
-    // const minus = () => {
-    //   if (counter <= 1) {
-    //     counter = 1
-    //   }
-    //   setCounter(counter - 1)
-    // }
+    const minus = () => {
+      if (counter <= 1) {
+        counter = 1
+      }
+      setCounter(counter - 1)
+    }
 
   return (
     <>
@@ -139,13 +138,13 @@ const DetailContent = ({admin}) => {
                   width: "26.62px",
                   height: "26.62px",
                   cursor: "pointer"
-                }} src={Minus} alt="minus"/>
-                <p style={{ fontSize: "18px", fontWeight: "800"}}>{tourDetail?.qtyCounter}</p>
+                }} src={Minus} alt="minus" onClick={minus}/>
+                <p style={{ fontSize: "18px", fontWeight: "800"}}>{counter}</p>
                 <img style={{
                   width: "26.62px",
                   height: "26.62px",
                   cursor: "pointer"
-                }} src={Plus} alt="plus"/>
+                }} src={Plus} alt="plus" onClick={plus}/>
               </li>
             </ul>
           </div>

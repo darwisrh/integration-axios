@@ -9,6 +9,8 @@ import ProfileDrop from "./modals/ProfileDd";
 import { API } from "../config/api";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
 
 const test = [
   {
@@ -59,12 +61,10 @@ let HomeLogin = '/name-home'
 const LoginPayment = ({ isLogin }) => {
 
   const tripId = useParams()
-
   let {data: payment} = useQuery('paymentCache', async () => {
     const response = await API.get(`/trip/${tripId.id}`)
     return response.data.data
   })
-  console.log(payment);
 
   return (
     <>

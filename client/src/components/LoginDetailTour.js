@@ -1,3 +1,4 @@
+
 import LoginNav from "./LoginNav"
 import { Link, useParams } from "react-router-dom"
 import { useState } from "react"
@@ -6,6 +7,7 @@ import Footer from "./footer"
 import ProfileDrop from "./modals/ProfileDd"
 import { useQuery } from "react-query"
 import { API } from "../config/api"
+import { useMutation } from "react-query"
 
 // Detail Images
 import Opera from '../images/Details/detail1.png'
@@ -61,26 +63,55 @@ const LoginDetailTour = () => {
   })
   console.log(detailTour);
 
-  // let [counter, setCounter] = useState(1)
+  let [counter, setCounter] = useState(detailTour?.qtyCounter)
 
-  // const plus = () => {
-  //   setCounter(counter + 1)
-  // }
+  const plus = () => {
+    if (counter >= detailTour?.quota){
+      counter = detailTour?.quota
+    }
+    setCounter(counter + 1)
+  }
 
-  // const minus = () => {
-  //   if (counter <= 1) {
-  //     counter = 1
-  //   }
-  //   setCounter(counter - 1)
-  // }
+  const minus = () => {
+    if (counter <= 1) {
+      counter = 1
+    }
+    setCounter(counter - 1)
+  }
 
-  // let intPrice = Number(price)
-  // let stringPrice = intPrice.toLocaleString()
-  // let tourPrice = Number(price * counter)
-  // let finalPrice = tourPrice.toLocaleString()
+  let intPrice = detailTour?.price
+  let stringPrice = intPrice
+  let tourPrice = detailTour?.price * counter
+  let finalPrice = tourPrice.toLocaleString()
 
+    const data = {
+      counter_qty: counter,
+      total: finalPrice,
+      status: ""
+    }
 
-  // user
+    // Insert Data Transaction
+    const handleSubmit = useMutation(async (e) => {
+      try {
+        e.preventDefault()
+  
+        // Mengkonfigurasi tipe konten
+        const config = {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+  
+        const body = JSON.stringify(data)
+  
+        // Memasukkan data user ke Database
+        const response = await API.post('/register', body, config)
+      } catch (err) {
+        console.log(err)
+      }
+    })
+  
+    // ============================
 
 
   return (
@@ -134,7 +165,7 @@ const LoginDetailTour = () => {
             <ul>
               <li>
                 <p style={{ fontSize: "24px", fontWeight: "800", color: "#FFAF00", marginRight: "10px"}}>
-                IDR. {detailTour?.price.toLocaleString()}
+                IDR. {stringPrice?.toLocaleString()}
                 </p>
                 <p style={{ fontSize: "24px", fontWeight: "800"}}>
                   / Person
@@ -145,13 +176,13 @@ const LoginDetailTour = () => {
                   width: "26.62px",
                   height: "26.62px",
                   cursor: "pointer"
-                }} src={Minus} alt="minus" />
-                <p style={{ fontSize: "18px", fontWeight: "800"}}>{detailTour?.qtyCounter}</p>
+                }} src={Minus} alt="minus" onClick={minus}/>
+                <p style={{ fontSize: "18px", fontWeight: "800"}}>{counter}</p>
                 <img style={{
                   width: "26.62px",
                   height: "26.62px",
                   cursor: "pointer"
-                }} src={Plus} alt="plus" />
+                }} src={Plus} alt="plus" onClick={plus}/>
               </li>
             </ul>
           </div>
@@ -161,7 +192,7 @@ const LoginDetailTour = () => {
           <div className="bottom-payment">
             <ul>
               <li>Total :</li>
-              <li>IDR. {detailTour?.price.toLocaleString()}</li>
+              <li>IDR. {finalPrice}</li>
             </ul>
           </div>
         </div>
@@ -169,7 +200,7 @@ const LoginDetailTour = () => {
         <hr />
 
         <div className="payment-button">
-          <Link to={`/payment/${detailTour?.id}`} className='button'>BOOK NOW</Link>
+          <Link to={`/payment/${detailTour?.id}`} onClick={(e) => handleSubmit.mutate(e)} className='button'>BOOK NOW</Link>
         </div>
       </div>
     </div>

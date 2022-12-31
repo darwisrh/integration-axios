@@ -5,6 +5,12 @@ import AlertMod from './modals/alert'
 import Footer from './footer'
 import Booking from '../images/book.png'
 
+// Fetching User
+import { API } from '../config/api'
+import { useContext } from 'react'
+import { UserContext } from '../context/userContext'
+import { useQuery } from 'react-query'
+
 const MidStyle = {
   fontSize: "18px",
   fontWeight: "800",
@@ -128,7 +134,15 @@ const endPayment = [
 ]
 
 export const EndPayment = (props) => {
-  console.log(props);
+
+    // Fetching User
+    const [state] = useContext(UserContext)
+    let userId = state?.user.id
+    let {data: userById} = useQuery('userIdCache', async () => {
+      const response = await API.get(`/user/${userId}`)
+      return response.data.data
+    })
+
   return (
     <div>
       
@@ -142,9 +156,9 @@ export const EndPayment = (props) => {
         <hr />
         <div className='bottom'>
           <p>1</p>
-          <p>Penduduk Jupiter</p>
+          <p>{userById?.fullname}</p>
           <p>Male</p>
-          <p>083896833112</p>
+          <p>{userById?.phone}</p>
           <p>Qty                  :</p>
           <p>{props.qtyCounter}</p>
         </div>
