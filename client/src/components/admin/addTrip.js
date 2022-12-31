@@ -8,6 +8,7 @@ import { useMutation } from "react-query"
 import { API } from "../../config/api"
 import { useState } from 'react';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 // Styling
 const test = [
@@ -56,6 +57,8 @@ let admin = '/income-transaction'
 
 const AddTrip = () => {
 
+  const navigate = useNavigate()
+
   let {data: country} = useQuery('countryCache', async () => {
     const response = await API.get('/countries')
     return response.data.data
@@ -65,11 +68,11 @@ const AddTrip = () => {
     title: "",
     accomodation: "",
     transportation: "",
-    country_id: "",
+    countryid: "",
     eat: "",
     day: "",
     night: "",
-    date_trip: "",
+    date: "",
     price: "",
     quota: "",
     description: "",
@@ -89,8 +92,6 @@ const AddTrip = () => {
       })
     }
   }
-  console.log(form);
-  
 
   const handleSubmit = useMutation(async (e) => {
     try {
@@ -102,10 +103,11 @@ const AddTrip = () => {
       formData.append('title', form.title)
       formData.append('accomodation', form.accomodation)
       formData.append('transportation', form.transportation)
-      formData.append('country_id', form.country_id)
+      formData.append('countryid', form.countryid)
       formData.append('eat', form.eat)
       formData.append('day', form.day)
-      formData.append('date_trip', form.date_trip)
+      formData.append('night', form.night)
+      formData.append('date', form.date)
       formData.append('quota', form.quota)
       formData.append('price', form.price)
       formData.append('description', form.description)
@@ -113,7 +115,7 @@ const AddTrip = () => {
 
       // Memasukkan data user ke Database
       const response = await API.post('/trip', formData)
-      console.log(response);
+      navigate('/income-trips')
     } catch (err) {
       console.log(err)
     }
@@ -135,7 +137,7 @@ const AddTrip = () => {
 
             <Form.Group className="mb-3">
               <Form.Label style={font}>Country</Form.Label>
-              <Form.Select style={formControl} name='country_id' onChange={handleChange} value={form.country}>
+              <Form.Select style={formControl} name='countryid' onChange={handleChange}>
                 {
                   country?.map((country) => (
                     <option key={country.id} value={country.id}>{country.name}</option>
@@ -191,7 +193,7 @@ const AddTrip = () => {
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label style={font}>Date Trip</Form.Label>
-              <Form.Control style={formControl} type="text" name='date_trip' onChange={handleChange} value={form.date_trip}/>
+              <Form.Control style={formControl} type="text" name='date' onChange={handleChange} value={form.datetrip}/>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">

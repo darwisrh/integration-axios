@@ -120,10 +120,11 @@ const LoginDetailTour = () => {
   
     // ============================
 
+    let home = '/home'
 
   return (
     <>
-      <LoginNav test={test} Drop={ProfileDrop}/>
+      <LoginNav test={test} Drop={ProfileDrop} home={home}/>
       <div>
       <div className="detail-cont">
       <div className="cont-wrapper">
@@ -153,7 +154,7 @@ const LoginDetailTour = () => {
             <InfoDatas img={Hotel} title={detailTour?.accomodation} header="Accommodation"/>
             <InfoDatas img={Plane} title={detailTour?.transportation} header="Transportation"/>
             <InfoDatas img={Meal} title={detailTour?.eat} header="Eat"/>
-            <InfoDatas img={Time} title={`${detailTour?.day} Day ${detailTour?.night}`} header="Duration"/>
+            <InfoDatas img={Time} title={`${detailTour?.day} Day ${detailTour?.night} Night`} header="Duration"/>
             <InfoDatas img={Calendar} title={detailTour?.datetrip} header="Date Trip"/>
           </div>
 
