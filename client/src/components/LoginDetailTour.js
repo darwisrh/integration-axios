@@ -8,6 +8,8 @@ import ProfileDrop from "./modals/ProfileDd"
 import { useQuery } from "react-query"
 import { API } from "../config/api"
 import { useMutation } from "react-query"
+import { UserContext } from "../context/userContext"
+import { useContext } from "react"
 
 // Detail Images
 import Opera from '../images/Details/detail1.png'
@@ -54,9 +56,10 @@ const InfoDatas = ({img, title, header}) => {
 let HomeLogin = '/name-home'
 
 const LoginDetailTour = () => {
+
+  const [state] = useContext(UserContext)
   
   let detail = useParams()
-  
   let {data: detailTour} = useQuery('tourCache', async () => {
     const response = await API.get(`/trip/${detail.id}`)
     return response.data.data
@@ -85,10 +88,14 @@ const LoginDetailTour = () => {
   let finalPrice = tourPrice.toLocaleString()
 
     const data = {
-      counter_qty: counter,
+      counterqty: counter,
       total: finalPrice,
-      status: ""
+      attachment: "test.jpg",
+      status: "pending",
+      trip_id: detail.id,
+      user_id: state?.user.id
     }
+    console.log(data);
 
     // Insert Data Transaction
     const handleSubmit = useMutation(async (e) => {
@@ -105,7 +112,7 @@ const LoginDetailTour = () => {
         const body = JSON.stringify(data)
   
         // Memasukkan data user ke Database
-        const response = await API.post('/register', body, config)
+        const response = await API.post('/transaction', body, config)
       } catch (err) {
         console.log(err)
       }
