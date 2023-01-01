@@ -91,13 +91,12 @@ const LoginDetailTour = () => {
 
     const data = {
       counterqty: counter,
-      total: tourPrice,
+      total: finalPrice,
       attachment: "",
       status: "",
       trip_id: detail.id,
       user_id: state?.user.id
     }
-    console.log(data);
 
     // Insert Data Transaction
     const handleSubmit = useMutation(async (e) => {
