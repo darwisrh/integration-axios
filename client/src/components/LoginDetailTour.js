@@ -89,6 +89,7 @@ const LoginDetailTour = () => {
   let tourPrice = detailTour?.price * counter
   let finalPrice = tourPrice.toLocaleString()
 
+
     const data = {
       counterqty: counter,
       total: finalPrice,
