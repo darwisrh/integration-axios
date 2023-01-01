@@ -29,7 +29,6 @@ function IncomeTable() {
     const response = await API.get('/users')
     return response.data.data
   })
-  console.log(users);
 
   return (
     <>
