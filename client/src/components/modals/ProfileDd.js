@@ -4,7 +4,7 @@ import DetailProfile from '../detailProfile';
 import LoginPayment from '../LoginPayment';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { UserContext } from '../../context/userContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,9 +16,8 @@ import Logout from './images/logout.png'
 import Polygon from './images/polygon.png'
 
 // Get User
-import { useParams } from 'react-router-dom';
-import { API } from '../../config/api';
 import { useQuery } from 'react-query';
+import { API } from '../../config/api';
 
 const dropDown = {
   width: "200px",

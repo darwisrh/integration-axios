@@ -11,7 +11,7 @@ type TransactionRepo interface {
 	FindTransaction() ([]models.TransactionModels, error)
 	GetTransaction(ID int) (models.TransactionModels, error)
 	DeleteTransaction(transac models.TransactionModels) (models.TransactionModels, error)
-	UpdateTransaction(trip models.TransactionModels) (models.TransactionModels, error)
+	UpdateTransaction(status string, ID int) (models.TransactionModels, error)
 }
 
 func RepositoryTransac(db *gorm.DB) *repository {
@@ -44,8 +44,21 @@ func (r *repository) DeleteTransaction(transac models.TransactionModels) (models
 	return transac, err
 }
 
-func (r *repository) UpdateTransaction(transac models.TransactionModels) (models.TransactionModels, error) {
-	err := r.db.Save(&transac).Error
+func (r *repository) UpdateTransaction(status string, ID int) (models.TransactionModels, error) {
+	var transaction models.TransactionModels
+	r.db.Preload("Product").First(&transaction, ID)
 
-	return transac, err
+	// If is different & Status is "success" decrement product quantity
+	if status != transaction.Status && status == "success" {
+		var trip models.Trip
+		r.db.First(&trip, transaction.Trip.ID)
+		trip.Quota = trip.Quota - 1
+		r.db.Save(&trip)
+	}
+
+	transaction.Status = status
+
+	err := r.db.Save(&transaction).Error
+
+	return transaction, err
 }

@@ -7,7 +7,7 @@ import ProfileDrop from "./modals/ProfileDd";
 
 // Fetching Data
 import { API } from "../config/api";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
@@ -58,6 +58,55 @@ const endPayment = [
 
 const LoginPayment = () => {
 
+  const handleBuy = useMutation(async (data) => {
+
+// Insert transaction data
+const response = await API.post("/transaction", config);
+
+const token = response.data.token;
+
+window.snap.pay(token, {
+  onSuccess: function (result) {
+    /* You may add your own implementation here */
+    console.log(result);
+    history.push("/profile");
+  },
+  onPending: function (result) {
+    /* You may add your own implementation here */
+    console.log(result);
+    history.push("/profile");
+  },
+  onError: function (result) {
+    /* You may add your own implementation here */
+    console.log(result);
+  },
+  onClose: function () {
+    /* You may add your own implementation here */
+    alert("you closed the popup without finishing the payment");
+  },
+});
+
+  })
+
+useEffect(() => {
+  //change this to the script source you want to load, for example this is snap.js sandbox env
+  const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
+  //change this according to your client-key
+  const myMidtransClientKey = "SB-Mid-client-zXst3wmknvMvtu6d";
+
+  let scriptTag = document.createElement("script");
+  scriptTag.src = midtransScriptUrl;
+  // optional if you want to set script attribute
+  // for example snap.js have data-client-key attribute
+  scriptTag.setAttribute("data-client-key", myMidtransClientKey);
+
+  document.body.appendChild(scriptTag);
+  return () => {
+    document.body.removeChild(scriptTag);
+  };
+}, []);
+
+
   // Mengambil data transaction berdasarkan id user
   const [state] = useContext(UserContext)
 
@@ -101,7 +150,7 @@ const LoginPayment = () => {
             </div>
           </div>
           <div className='buttons'>
-            <div>
+            <div >
               <AlertMod />
             </div>
           </div>
