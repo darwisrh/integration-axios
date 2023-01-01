@@ -78,6 +78,7 @@ const AddTrip = () => {
     description: "",
     image: ""
   })
+  console.log(form);
 
   const handleChange = (e) => {
     if (e.target.name === "image") {
@@ -98,7 +99,6 @@ const AddTrip = () => {
       e.preventDefault()
 
       const formData = new FormData()
-
 
       formData.append('title', form.title)
       formData.append('accomodation', form.accomodation)

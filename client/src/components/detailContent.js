@@ -78,6 +78,11 @@ const DetailContent = ({admin}) => {
       setCounter(counter - 1)
     }
 
+    let intPrice = tourDetail?.price
+    let stringPrice = intPrice
+    let tourPrice = tourDetail?.price * counter
+    let finalPrice = tourPrice.toLocaleString()
+
   return (
     <>
     <div className="detail-cont">
@@ -127,7 +132,7 @@ const DetailContent = ({admin}) => {
             <ul>
               <li>
                 <p style={{ fontSize: "24px", fontWeight: "800", color: "#FFAF00", marginRight: "10px"}}>
-                IDR. {tourDetail?.price.toLocaleString()}
+                IDR. {stringPrice}
                 </p>
                 <p style={{ fontSize: "24px", fontWeight: "800"}}>
                   / Person
@@ -154,7 +159,7 @@ const DetailContent = ({admin}) => {
           <div className="bottom-payment">
             <ul>
               <li>Total :</li>
-              <li>IDR. {tourDetail?.price.toLocaleString()}</li>
+              <li>IDR. {finalPrice}</li>
             </ul>
           </div>
         </div>

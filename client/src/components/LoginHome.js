@@ -40,8 +40,6 @@ const LoginNav = ({isLogin}) => {
   )
 }
 
-let HomeLogin = '/name-home'
-
 const LoginHome = ({ isLogin }) => {
 
   let {data: cards} = useQuery('cardsCache', async () => {

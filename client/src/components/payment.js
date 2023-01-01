@@ -93,7 +93,7 @@ export const MiddlePayment = ({booking, getCountry, getTitle, day, night, transp
 
       <div className='mid-payment-d'>
         <img src={booking} alt="booking" />
-        <p>{'source.detail'}</p>
+        <p>TUDAT637242</p>
       </div>
 
     </div>
@@ -134,15 +134,6 @@ const endPayment = [
 ]
 
 export const EndPayment = (props) => {
-
-    // Fetching User
-    const [state] = useContext(UserContext)
-    let userId = state?.user.id
-    let {data: userById} = useQuery('userIdCache', async () => {
-      const response = await API.get(`/user/${userId}`)
-      return response.data.data
-    })
-
   return (
     <div>
       
@@ -156,9 +147,9 @@ export const EndPayment = (props) => {
         <hr />
         <div className='bottom'>
           <p>1</p>
-          <p>{userById?.fullname}</p>
+          <p>{props.username}</p>
           <p>Male</p>
-          <p>{userById?.phone}</p>
+          <p>{props?.phone}</p>
           <p>Qty                  :</p>
           <p>{props.qtyCounter}</p>
         </div>

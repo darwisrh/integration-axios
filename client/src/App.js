@@ -17,6 +17,7 @@ import LoginHome from "./components/LoginHome";
 import LoginPayment from "./components/LoginPayment";
 import LoginDetailTour from "./components/LoginDetailTour";
 import DetailProfile from "./components/detailProfile";
+import PaymentPending from "./components/paymentPending";
 
 // Auth
 import { useContext, useEffect } from "react";
@@ -96,7 +97,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/home" element={<LoginHome />}/>
           <Route path="/l-trip/:id" element={<LoginDetailTour />} />
-          <Route path="/payment/:id" element={<LoginPayment />} />
+          <Route path="/payment" element={<LoginPayment />} />
           <Route path="/detail-profile/:id" element={<DetailProfile />} />
         </Route>
 

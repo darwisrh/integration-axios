@@ -10,6 +10,7 @@ import { API } from "../config/api"
 import { useMutation } from "react-query"
 import { UserContext } from "../context/userContext"
 import { useContext } from "react"
+import { useNavigate } from "react-router-dom"
 
 // Detail Images
 import Opera from '../images/Details/detail1.png'
@@ -57,6 +58,8 @@ let HomeLogin = '/name-home'
 
 const LoginDetailTour = () => {
 
+  const navigate = useNavigate()
+
   const [state] = useContext(UserContext)
   
   let detail = useParams()
@@ -64,7 +67,6 @@ const LoginDetailTour = () => {
     const response = await API.get(`/trip/${detail.id}`)
     return response.data.data
   })
-  console.log(detailTour);
 
   let [counter, setCounter] = useState(detailTour?.qtyCounter)
 
@@ -89,9 +91,9 @@ const LoginDetailTour = () => {
 
     const data = {
       counterqty: counter,
-      total: finalPrice,
-      attachment: "test.jpg",
-      status: "pending",
+      total: tourPrice,
+      attachment: "",
+      status: "",
       trip_id: detail.id,
       user_id: state?.user.id
     }
@@ -102,17 +104,17 @@ const LoginDetailTour = () => {
       try {
         e.preventDefault()
   
-        // Mengkonfigurasi tipe konten
-        const config = {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-  
-        const body = JSON.stringify(data)
-  
-        // Memasukkan data user ke Database
-        const response = await API.post('/transaction', body, config)
+        const formData = new FormData()
+
+        formData.append('counterqty', data.counterqty)
+        formData.append('total', data.total)
+        formData.append('attachment', data.attachment)
+        formData.append('status', data.status)
+        formData.append('trip_id', data.trip_id)
+        formData.append('user_id', data.user_id)
+
+        const response = await API.post('/transaction', formData)
+        navigate(`/payment`)
       } catch (err) {
         console.log(err)
       }
@@ -208,7 +210,7 @@ const LoginDetailTour = () => {
         <hr />
 
         <div className="payment-button">
-          <Link to={`/payment/${detailTour?.id}`} onClick={(e) => handleSubmit.mutate(e)} className='button'>BOOK NOW</Link>
+          <Link onClick={(e) => handleSubmit.mutate(e)} className='button'>BOOK NOW</Link>
         </div>
       </div>
     </div>

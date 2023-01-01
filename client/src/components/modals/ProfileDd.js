@@ -100,7 +100,7 @@ function ProfileDrop() {
             </Link>
           </Dropdown.Item>
           <Dropdown.Item style={dropItem}>
-            <Link style={dropItem} to={`/name-home/name-payment/:id`} element={LoginPayment}>
+            <Link style={dropItem} to={`/payment`} element={LoginPayment}>
               <img style={img} src={Pay} alt="user" />
               <p style={fonts}>Pay</p>
             </Link>

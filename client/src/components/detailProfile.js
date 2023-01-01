@@ -139,7 +139,7 @@ const ProfileCard = () => {
   )
 }
 
-let HomeLogin = '/name-home'
+let home = '/home'
 
 const DetailProfile = ({ isLogin, priceUser, doneCount, getCountry, getTitle }) => {
   return (
@@ -147,7 +147,7 @@ const DetailProfile = ({ isLogin, priceUser, doneCount, getCountry, getTitle }) 
       <div className="profile-cont">
         <div className="profile-wrapper">
 
-          <LoginNav test={test} Drop={ProfileDrop} isLogin={isLogin} admin={HomeLogin}/>
+          <LoginNav Drop={ProfileDrop} isLogin={isLogin} home={home}/>
 
           <div className="profile-content">
             <ProfileCard />

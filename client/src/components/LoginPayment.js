@@ -56,44 +56,58 @@ const endPayment = [
 
 ]
 
-let HomeLogin = '/name-home'
+const LoginPayment = () => {
 
-const LoginPayment = ({ isLogin }) => {
+  // Mengambil data transaction berdasarkan id user
+  const [state] = useContext(UserContext)
 
-  const tripId = useParams()
-  let {data: payment} = useQuery('paymentCache', async () => {
-    const response = await API.get(`/trip/${tripId.id}`)
+  const {data: transaction} = useQuery('transactionCache', async () => {
+    const response = await API.get(`/transactions`)
     return response.data.data
+  })
+
+  const transactionFilter = transaction?.filter(user => {
+    if (user?.user_id == state?.user.id) {
+      return user
+    }
   })
 
   return (
     <>
-      <LoginNav test={test} Drop={ProfileDrop} isLogin={isLogin} admin={HomeLogin}/>
-      <div className="payment-cont">
-        <div className="payment-wrapper">
-          <HeaderPayment/>
-          <MiddlePayment 
-          booking={Booking} 
-          getCountry={payment?.country.name} 
-          getTitle={payment?.title}
-          day={payment?.day}
-          night={payment?.night}
-          transportation={payment?.transportation}
-          datetrip={payment?.datetrip}
-          accomodation={payment?.accomodation}
-          />
-          <EndPayment 
-          styling={endPayment}
-          qtyCounter={payment?.qtyCounter}
-          price={payment?.price}
-          />
+      <LoginNav test={test} Drop={ProfileDrop} home={'/home'}/>
+      {
+        transactionFilter?.map(trans => (
+          <div>
+          <div className="payment-cont">
+            <div className="payment-wrapper">
+              <HeaderPayment/>
+              <MiddlePayment 
+              booking={Booking} 
+              getCountry={trans?.trip.country.name} 
+              getTitle={trans?.trip.title}
+              day={trans?.trip.day}
+              night={trans?.trip.night}
+              transportation={trans?.trip.transportation}
+              datetrip={trans?.trip.datetrip}
+              accomodation={trans?.trip.accomodation}
+              />
+              <EndPayment 
+              styling={endPayment}
+              qtyCounter={trans?.trip.qtycounter}
+              price={trans?.trip.price}
+              username={trans?.user.fullname}
+              phone={trans?.user.phone}
+              />
+            </div>
+          </div>
+          <div className='buttons'>
+            <div>
+              <AlertMod />
+            </div>
+          </div>
         </div>
-      </div>
-      <div className='buttons'>
-        <div>
-          <AlertMod />
-        </div>
-      </div>
+        ))
+      }
       <Footer />
     </>
   )
