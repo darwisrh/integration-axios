@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import LoginNav from '../LoginNav'
 import AdminDrop from './dropDown';
 import AddCountryMod from './countryModal';
@@ -44,7 +44,7 @@ const countryStyle = {
 
 export default function AddCountry() {
 
-  let {data: countries} = useQuery('countryCache', async () => {
+  let {data: countries, refetch: countryFetch} = useQuery('countryCache', async () => {
     const response = await API.get('/countries')
     return response.data.data
   })
@@ -61,7 +61,7 @@ export default function AddCountry() {
             }}>
               Add New Country
             </h3>
-            <AddCountryMod />
+            <AddCountryMod refetch={countryFetch}/>
           </div>
 
           <div style={body}>
@@ -82,10 +82,11 @@ export default function AddCountry() {
                     <td>{country?.id}</td>
                     <td style={{
                       display: "flex",
-                      justifyContent: "space-between",
-                      cursor: "pointer"
+                      justifyContent: "space-between"
                     }}
-                    >{country?.name}</td>
+                    >
+                      {country?.name}
+                    </td>
                   </tr>
                 </tbody>
               ))
