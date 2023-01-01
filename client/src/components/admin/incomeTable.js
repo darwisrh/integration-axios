@@ -48,7 +48,7 @@ function IncomeTable() {
             </tr>
           </thead>
           <tbody>
-            {
+            {/* {
               users?.map(user => (
                 <tr style={tableRow}>
                   <td>{user?.id}</td>
@@ -59,7 +59,7 @@ function IncomeTable() {
                   <td><AdminModal/></td>
                 </tr>
               ))
-            }
+            } */}
           </tbody>
           </Table>
         </div>

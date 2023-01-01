@@ -8,7 +8,7 @@ import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Fetching Data
-import { useMutation, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import { API } from '../../config/api';
 
 
@@ -44,7 +44,7 @@ const countryStyle = {
 
 export default function AddCountry() {
 
-  let {data: countries, refetch} = useQuery('countryCache', async () => {
+  let {data: countries} = useQuery('countryCache', async () => {
     const response = await API.get('/countries')
     return response.data.data
   })
@@ -82,8 +82,10 @@ export default function AddCountry() {
                     <td>{country?.id}</td>
                     <td style={{
                       display: "flex",
-                      justifyContent: "space-between"
-                    }}>{country?.name}</td>
+                      justifyContent: "space-between",
+                      cursor: "pointer"
+                    }}
+                    >{country?.name}</td>
                   </tr>
                 </tbody>
               ))
@@ -97,10 +99,3 @@ export default function AddCountry() {
     </>
   )
 }
-
-{/* <p style={{
-                      marginRight: "15px", 
-                      fontWeight: "800", 
-                      color: "red",
-                      cursor: "pointer"
-                      }}>X</p> */}

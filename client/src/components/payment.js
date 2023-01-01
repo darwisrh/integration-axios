@@ -134,6 +134,7 @@ const endPayment = [
 ]
 
 export const EndPayment = (props) => {
+
   return (
     <div>
       
@@ -151,12 +152,12 @@ export const EndPayment = (props) => {
           <p>Male</p>
           <p>{props?.phone}</p>
           <p>Qty                  :</p>
-          <p>{props.qtyCounter}</p>
+          <p>{props?.qtyCounter}</p>
         </div>
         <hr />
         <div style={props.styling[0]} className='more-bottom'>
           <p style={props.styling[1]}>Total                :</p>
-          <p style={props.styling[2]}>IDR. {props.price.toLocaleString()}</p>
+          <p style={props.styling[2]}>IDR. {props?.price}</p>
         </div>
       </div>
 
