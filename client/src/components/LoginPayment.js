@@ -1,6 +1,5 @@
 import LoginNav from "./LoginNav";
 import { HeaderPayment, MiddlePayment, EndPayment } from "./payment";
-import AlertMod from './modals/alert'
 import Footer from './footer'
 import Booking from '../images/book.png'
 import ProfileDrop from "./modals/ProfileDd";
@@ -74,11 +73,6 @@ const LoginPayment = () => {
     }
   })
 
-  // const test = transactionFilter?.map(item => {
-  //   console.log(item);
-  // })
-
-
   // Snap
   const handleBuy = useMutation(async (data) => {
     console.log(data);
@@ -108,12 +102,12 @@ const LoginPayment = () => {
         onSuccess: function (result) {
           /* You may add your own implementation here */
           console.log(result);
-          navigate('/home')
+          navigate(`/detail-profile/${state?.user.id}`)
         },
         onPending: function (result) {
           /* You may add your own implementation here */
           console.log(result);
-          navigate('/home')
+          navigate(`/detail-profile/${state?.user.id}`)
         },
         onError: function (result) {
           /* You may add your own implementation here */
@@ -167,6 +161,7 @@ const LoginPayment = () => {
               transportation={trans?.trip.transportation}
               datetrip={trans?.trip.datetrip}
               accomodation={trans?.trip.accomodation}
+              status={trans?.status}
               />
               <EndPayment 
               styling={endPayment}
@@ -179,7 +174,16 @@ const LoginPayment = () => {
           </div>
           <div className='buttons'>
             <div>
-              <button onClick={() => handleBuy.mutate({qty: trans?.counterqty, total: trans?.total, tripid: trans?.trip_id, userid: trans?.user_id})}>Pay</button>
+              <button onClick={() => handleBuy.mutate({qty: trans?.counterqty, total: trans?.total, tripid: trans?.trip_id, userid: trans?.user_id})}
+              style={{
+                background: "#FFAF00",
+                padding: "7px 50px",
+                borderRadius: "5px",
+                border: "1px solid #FFAF00",
+                fontWeight: "800",
+                color: "white"
+              }}
+              >Pay</button>
             </div>
           </div>
         </div>

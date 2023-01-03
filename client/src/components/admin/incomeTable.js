@@ -25,11 +25,11 @@ const tableRow = {
 
 function IncomeTable() {
 
-  let {data: users} = useQuery('usersCache', async () => {
-    const response = await API.get('/users')
+  let {data: transaction} = useQuery('transactionCacheB', async () => {
+    const response = await API.get('/transactions')
     return response.data.data
   })
-  console.log(users);
+  console.log(transaction);
 
   return (
     <>
@@ -49,13 +49,13 @@ function IncomeTable() {
           </thead>
           <tbody>
             {
-              users?.map(user => (
+              transaction?.map((trans, i) => (
                 <tr style={tableRow}>
-                  <td>{user?.id}</td>
-                  <td>{user?.user}</td>
-                  <td>{user?.trip}</td>
-                  <td>{user?.buktiTransfer}</td>
-                  <td>{user?.statusPayment}</td>
+                  <td>{i + 1}</td>
+                  <td>{trans?.user.fullname}</td>
+                  <td>{trans?.trip.title}</td>
+                  <td>{trans?.attachment}</td>
+                  <td>{trans?.status}</td>
                   <td><AdminModal/></td>
                 </tr>
               ))
@@ -64,7 +64,6 @@ function IncomeTable() {
           </Table>
         </div>
       </div>
-    <Footer />
     </>
   );
 }

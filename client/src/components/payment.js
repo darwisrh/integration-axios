@@ -5,12 +5,6 @@ import AlertMod from './modals/alert'
 import Footer from './footer'
 import Booking from '../images/book.png'
 
-// Fetching User
-import { API } from '../config/api'
-import { useContext } from 'react'
-import { UserContext } from '../context/userContext'
-import { useQuery } from 'react-query'
-
 const MidStyle = {
   fontSize: "18px",
   fontWeight: "800",
@@ -59,14 +53,14 @@ export const HeaderPayment = () => {
   )
 }
 
-export const MiddlePayment = ({booking, getCountry, getTitle, day, night, transportation, datetrip, accomodation}) => {
+export const MiddlePayment = ({booking, getCountry, getTitle, day, night, transportation, datetrip, accomodation, status}) => {
   return (
     <div className='middle-payment'>
 
       <div className='mid-payment-a'>
         <p>{getTitle}</p>
         <p>{getCountry}</p>
-        <p>Waiting Payment</p>
+        <p>{status}</p>
       </div>
 
       <div className='mid-payment-b'>
@@ -134,6 +128,7 @@ const endPayment = [
 ]
 
 export const EndPayment = (props) => {
+  console.log(props);
   return (
     <div>
       
