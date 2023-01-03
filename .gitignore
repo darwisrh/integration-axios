@@ -2,5 +2,4 @@
 /client/node_modules
 
 # Server
-/server/.env
 /server/uploads
