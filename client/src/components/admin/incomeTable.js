@@ -34,9 +34,9 @@ function IncomeTable() {
   return (
     <>
       <div style={tableWrapper}>
-        <div style={{marginTop: "90px", height: "90vh"}}>
+        <div style={{marginTop: "90px"}}>
         <h2 style={{fontSize: "34px", fontWeight: "800"}}>Income Transaction</h2>
-          <Table striped bordered hover style={tableBody}>
+          <Table bordered hover style={tableBody}>
           <thead>
             <tr style={tableRow}>
               <th>No</th>
@@ -56,7 +56,22 @@ function IncomeTable() {
                   <td>{trans?.trip.title}</td>
                   <td>{trans?.attachment}</td>
                   <td>{trans?.status}</td>
-                  <td><AdminModal/></td>
+                  <td>
+                    <AdminModal 
+                      titleTrip={trans?.trip.title}
+                      countryN={trans?.trip.country.name}
+                      tripDay={trans?.trip.day}
+                      tripNight={trans?.trip.night}
+                      dateTrip={trans?.trip.datetrip}
+                      accomodation={trans?.trip.accomodation}
+                      transport={trans?.trip.transportation}
+                      status={trans?.status}
+                      fullname={trans?.user.fullname}
+                      phone={trans?.user.phone}
+                      price={trans?.total}
+                      qtycounter={trans?.counterqty}
+                    />
+                  </td>
                 </tr>
               ))
             }
@@ -64,6 +79,7 @@ function IncomeTable() {
           </Table>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

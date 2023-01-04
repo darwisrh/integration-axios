@@ -76,13 +76,6 @@ function ProfileDrop() {
     localStorage.removeItem('role')
   }
 
-  let userId = state?.user.id
-
-  let {data: user} = useQuery('userCache', async () => {
-    const response = await API.get(`/user/${userId}`)
-    return response.data.data
-  })
-
   return (
     <>
       <Dropdown>
@@ -93,7 +86,7 @@ function ProfileDrop() {
         <Dropdown.Menu style={dropDown}>
             <img style={polygon} src={Polygon} />
           <Dropdown.Item style={dropItem}>
-            <Link style={dropItem} to={`/detail-profile/${user?.id}`} element={DetailProfile}>
+            <Link style={dropItem} to={`/detail-profile`} element={DetailProfile}>
               <img style={img} src={User} alt="user" />
               <p style={fonts}>Profile</p>
             </Link>

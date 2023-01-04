@@ -98,7 +98,7 @@ function App() {
           <Route path="/home" element={<LoginHome />}/>
           <Route path="/l-trip/:id" element={<LoginDetailTour />} />
           <Route path="/payment" element={<LoginPayment />} />
-          <Route path="/detail-profile/:id" element={<DetailProfile />} />
+          <Route path="/detail-profile" element={<DetailProfile />} />
         </Route>
 
         {/* Admin */}

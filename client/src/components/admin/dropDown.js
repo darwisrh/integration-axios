@@ -11,6 +11,7 @@ import Profile from './images/profile.png'
 import Logout from './images/logout.png'
 import Polygon from './images/polygon.png'
 import Journey from './images/journey.png'
+import Country from './images/countries.png'
 
 const dropDown = {
   width: "200px",
@@ -88,7 +89,7 @@ function AdminDrop() {
           </Dropdown.Item>
           <Dropdown.Item style={dropItem} href="#/action-2">
             <Link style={dropItem} to="/addcountry">
-              <img style={img} src={Journey} alt="user" />
+              <img style={img} src={Country} alt="user" />
               <p style={fonts}>Country</p>
             </Link>
           </Dropdown.Item>

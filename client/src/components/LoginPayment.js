@@ -68,10 +68,11 @@ const LoginPayment = () => {
   })
 
   const transactionFilter = transaction?.filter(user => {
-    if (user?.user_id == state?.user.id) {
+    if (user?.user_id == state?.user.id && user?.status == 'Waiting Payment') {
       return user
     }
   })
+
 
   // Snap
   const handleBuy = useMutation(async (data) => {
@@ -102,12 +103,12 @@ const LoginPayment = () => {
         onSuccess: function (result) {
           /* You may add your own implementation here */
           console.log(result);
-          navigate(`/detail-profile/${state?.user.id}`)
+          navigate(`/detail-profile`)
         },
         onPending: function (result) {
           /* You may add your own implementation here */
           console.log(result);
-          navigate(`/detail-profile/${state?.user.id}`)
+          navigate(`/detail-profile`)
         },
         onError: function (result) {
           /* You may add your own implementation here */

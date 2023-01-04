@@ -123,12 +123,12 @@ const endPayment = [
   {
     marginLeft: "90px"
   }
-
-
 ]
 
 export const EndPayment = (props) => {
-  console.log(props);
+
+  let price = props?.price
+
   return (
     <div>
       
@@ -144,14 +144,14 @@ export const EndPayment = (props) => {
           <p>1</p>
           <p>{props.username}</p>
           <p>Male</p>
-          <p>{props?.phone}</p>
+          <p>{props.phone}</p>
           <p>Qty                  :</p>
           <p>{props.qtyCounter}</p>
         </div>
         <hr />
         <div style={props.styling[0]} className='more-bottom'>
           <p style={props.styling[1]}>Total                :</p>
-          <p style={props.styling[2]}>IDR. {props.price}</p>
+          <p style={props.styling[2]}>IDR. {price}</p>
         </div>
       </div>
 

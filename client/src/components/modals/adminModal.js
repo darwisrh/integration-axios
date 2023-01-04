@@ -61,7 +61,20 @@ const buttonB = {
   marginLeft: "20px"
 }
 
-function AdminModal({getCountry, getTitle}) {
+function AdminModal({
+  titleTrip, 
+  countryN, 
+  tripDay, 
+  tripNight, 
+  dateTrip, 
+  accomodation, 
+  transport,
+  status,
+  fullname,
+  phone,
+  price,
+  qtycounter
+}) {
   const [show, setShow] = useState(false);
 
   return (
@@ -79,8 +92,24 @@ function AdminModal({getCountry, getTitle}) {
       >
           <Modal.Body>
             <HeaderPayment />
-            <MiddlePayment source={{Booking}} getCountry={getCountry} getTitle={getTitle}/>
-            <EndPayment styling={endPayment}/>
+            <MiddlePayment 
+            booking={Booking} 
+            getCountry={countryN} 
+            getTitle={titleTrip} 
+            day={tripDay}
+            night={tripNight}
+            transportation={transport}
+            datetrip={dateTrip}
+            accomodation={accomodation}
+            status={status}
+            />
+            <EndPayment 
+            styling={endPayment} 
+            username={fullname} 
+            phone={phone}
+            price={price}
+            qtyCounter={qtycounter}
+            />
           </Modal.Body>
           <div style={{
             display: "flex",

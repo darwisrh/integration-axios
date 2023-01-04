@@ -6,7 +6,7 @@ import { useMutation } from 'react-query';
 import { API } from '../../config/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function AddCountryMod() {
+function AddCountryMod({refetch}) {
 
   const [country, setCountry] = useState({
     name: ""
@@ -34,7 +34,9 @@ function AddCountryMod() {
 
       // Memasukkan data user ke Database
       const response = await API.post('/country', body, config)
-      console.log(response);
+      if( response.status == 200) {
+        refetch()
+      }
     } catch (err) {
       console.log(err)
     }

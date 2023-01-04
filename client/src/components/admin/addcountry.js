@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import LoginNav from '../LoginNav'
 import AdminDrop from './dropDown';
 import AddCountryMod from './countryModal';
+import Footer from '../footer';
 
 // React Bootstrap
 import Table from 'react-bootstrap/Table';
@@ -19,8 +20,7 @@ const container = {
 }
 
 const countryWrapper = {
-  width: "1200px",
-  height: "90vh"
+  width: "1200px"
 }
 
 const header = {
@@ -44,7 +44,7 @@ const countryStyle = {
 
 export default function AddCountry() {
 
-  let {data: countries, refetch} = useQuery('countryCache', async () => {
+  let {data: countries, refetch: countryDb} = useQuery('countryCache', async () => {
     const response = await API.get('/countries')
     return response.data.data
   })
@@ -61,7 +61,7 @@ export default function AddCountry() {
             }}>
               Add New Country
             </h3>
-            <AddCountryMod />
+            <AddCountryMod refetch={countryDb}/>
           </div>
 
           <div style={body}>
@@ -94,13 +94,7 @@ export default function AddCountry() {
         </div>
 
       </div>
+      <Footer />
     </>
   )
 }
-
-{/* <p style={{
-                      marginRight: "15px", 
-                      fontWeight: "800", 
-                      color: "red",
-                      cursor: "pointer"
-                      }}>X</p> */}

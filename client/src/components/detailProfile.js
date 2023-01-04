@@ -14,24 +14,25 @@ import Footer from './footer';
 
 // Fetching
 import { API } from '../config/api';
+import { useContext } from 'react';
+import { UserContext } from '../context/userContext';
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
 
 // Styling
-const test = [
-  {
-    width: "100px",
-    position: "absolute",
-    top: "1248px",
-    left: "1249px"
-  },
+// const test = [
+//   {
+//     width: "100px",
+//     position: "absolute",
+//     top: "1248px",
+//     left: "1249px"
+//   },
 
-  {
-    position: "absolute",
-    top: "300px",
-    right: "1240px"
-  }
-]
+//   {
+//     position: "absolute",
+//     top: "300px",
+//     right: "1240px"
+//   }
+// ]
 
 const endPayment = [
   // .more-bottom
@@ -71,12 +72,14 @@ const BioStyleB = {
 
 const ProfileCard = () => {
 
-  const profile = useParams()
+  const [state] = useContext(UserContext)
 
   let {data: user} = useQuery('profileCache', async () => {
-    const response = await API.get(`/user/${profile.id}`)
+    const response = await API.get(`/user/${state?.user.id}`)
     return response.data.data
   })
+
+
 
   return (
     <div className='profile-card-wrap'>
@@ -141,33 +144,60 @@ const ProfileCard = () => {
 
 let home = '/home'
 
-const DetailProfile = ({ isLogin, priceUser, doneCount, getCountry, getTitle }) => {
+const DetailProfile = () => {
+
+  const [state] = useContext(UserContext)
+
+  let {data: transactionScs} = useQuery('transactionSucces', async () => {
+    const response = await API.get('/transactions')
+    return response.data.data
+  })
+
+  const transactionFilter = transactionScs?.filter(trans => {
+    if(trans?.status == 'success' && trans?.user_id == state?.user.id) {
+      return trans
+    }
+  })
+
   return (
-    <>
-      <div className="profile-cont">
-        <div className="profile-wrapper">
-
-          <LoginNav Drop={ProfileDrop} isLogin={isLogin} home={home}/>
-
-          <div className="profile-content">
-            <ProfileCard />
-          </div>
-
-          <div className='payment-card-prof-wrap'>
-            <div>
-              <h2 style={{fontSize: "36px", fontWeight: "800", marginBottom: "25px"}}>History Trip</h2>
-              <div className='payment-card-prof'>
-                <HeaderPayment />
-                <MiddlePayment source={{Booking}} getCountry={getCountry} getTitle={getTitle}/>
-                <div className='bottom-payment-prof'>
-                  <EndPayment styling={endPayment} priceUser={priceUser} doneCount={doneCount}/>
-                </div>
-              </div>
+        <>
+      <LoginNav Drop={ProfileDrop} home={'/home'}/>
+      <div style={{
+        display: "flex",
+        justifyContent: "center",
+        marginTop: "50px"
+      }}>
+        <ProfileCard />
+      </div>
+      {
+        transactionFilter?.map(trans => (
+          <div>
+          <div className="payment-cont">
+            <div className="payment-wrapper">
+              <HeaderPayment/>
+              <MiddlePayment 
+              booking={Booking} 
+              getCountry={trans?.trip.country.name} 
+              getTitle={trans?.trip.title}
+              day={trans?.trip.day}
+              night={trans?.trip.night}
+              transportation={trans?.trip.transportation}
+              datetrip={trans?.trip.datetrip}
+              accomodation={trans?.trip.accomodation}
+              status={trans?.status}
+              />
+              <EndPayment 
+              styling={endPayment}
+              qtyCounter={trans?.counterqty}
+              price={trans?.total}
+              username={trans?.user.fullname}
+              phone={trans?.user.phone}
+              />
             </div>
           </div>
-
         </div>
-      </div>
+        ))
+      }
       <Footer />
     </>
   )

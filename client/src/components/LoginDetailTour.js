@@ -93,7 +93,7 @@ const LoginDetailTour = () => {
     const data = {
       counterqty: counter,
       total: tourPrice,
-      attachment: "",
+      attachment: "bank.jpg",
       status: "Waiting Payment",
       trip_id: detail.id,
       user_id: state?.user.id
