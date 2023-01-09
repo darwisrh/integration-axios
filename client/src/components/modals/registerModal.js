@@ -43,7 +43,7 @@ function RegisterModal({ show, setShow, handleShow }) {
 
       // Memasukkan data user ke Database
       const response = await API.post('/register', body, config)
-      console.log(response);
+
     } catch (err) {
       console.log(err)
     }

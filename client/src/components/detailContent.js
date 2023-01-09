@@ -79,7 +79,7 @@ const DetailContent = ({admin}) => {
     }
 
     let intPrice = tourDetail?.price
-    let stringPrice = intPrice
+    let stringPrice = intPrice.toLocaleString()
     let tourPrice = tourDetail?.price * counter
     let finalPrice = tourPrice.toLocaleString()
 
